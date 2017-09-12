@@ -16,7 +16,7 @@ set(shaderviewer_SRC
 
 # Create code from a list of Qt designer ui files.
 #set(CMAKE_AUTOUIC ON) # use this if you have CMake 3.x instead of the following
-# qt5_wrap_ui(shaderviewer_SRC src/shaderviewer.ui)
+qt5_wrap_ui(shaderviewer_SRC src/ShaderViewer.ui)
 
 # Tell CMake to create the helloworld executable
 add_executable(shaderviewer ${shaderviewer_SRC})
