@@ -1,18 +1,14 @@
 #include "canvas.h"
-#include "ui_ShaderViewer.h"
 
-ShaderViewer::ShaderViewer(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::ShaderViewer)
+ShaderViewer::ShaderViewer(QWidget *parent)
 {
-    ui->setupUi(this);
+    setupUi(this);
 }
 
 ShaderViewer::~ShaderViewer()
 {
-    delete ui;
 }
-/*
+
 void ShaderViewer::setupUi(QMainWindow *ShaderViewer)
 {
     if (ShaderViewer->objectName().isEmpty())
@@ -79,4 +75,4 @@ void ShaderViewer::retranslateUi(QMainWindow *ShaderViewer)
     actionAcerca_de->setText(QApplication::translate("ShaderViewer", "&Acerca de...", Q_NULLPTR));
     menuArchivo->setTitle(QApplication::translate("ShaderViewer", "Archivo", Q_NULLPTR));
     menuAyuda->setTitle(QApplication::translate("ShaderViewer", "A&yuda", Q_NULLPTR));
-}*/
+}

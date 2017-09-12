@@ -43,8 +43,8 @@ public:
     explicit ShaderViewer(QWidget *parent = nullptr);
     ~ShaderViewer();
 
-//     void setupUi(QMainWindow *ShaderViewer);
-//     void retranslateUi(QMainWindow *ShaderViewer);
+    void setupUi(QMainWindow *ShaderViewer);
+    void retranslateUi(QMainWindow *ShaderViewer);
 };
 
 #endif
