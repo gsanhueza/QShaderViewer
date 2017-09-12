@@ -4,9 +4,8 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    Canvas w;
+    ShaderViewer w;
     w.show();
 
     return app.exec();
 }
-

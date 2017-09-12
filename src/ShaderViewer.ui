@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
-    <height>480</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>640</width>
+     <width>1280</width>
      <height>47</height>
     </rect>
    </property>
@@ -33,7 +33,7 @@
     <property name="title">
      <string>Archivo</string>
     </property>
-    <addaction name="actionCargar_geometria"/>
+    <addaction name="actionCargar_Geometria"/>
     <addaction name="actionCargar_Vertex"/>
     <addaction name="actionCargar_Fragment"/>
     <addaction name="separator"/>
@@ -51,34 +51,34 @@
    <addaction name="menuAyuda"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionCargar_geometria">
+  <action name="actionCargar_Geometria">
    <property name="text">
-    <string>Cargar geometría</string>
+    <string>&amp;Cargar Geometría</string>
    </property>
   </action>
   <action name="actionCargar_Vertex">
    <property name="text">
-    <string>Cargar Vertex</string>
+    <string>&amp;Cargar Vertex</string>
    </property>
   </action>
   <action name="actionCargar_Fragment">
    <property name="text">
-    <string>Cargar Fragment</string>
+    <string>&amp;Cargar Fragment</string>
    </property>
   </action>
   <action name="actionSalir">
    <property name="text">
-    <string>Salir</string>
+    <string>&amp;Salir</string>
    </property>
   </action>
   <action name="actionTutorial">
    <property name="text">
-    <string>Tutorial</string>
+    <string>&amp;Tutorial</string>
    </property>
   </action>
   <action name="actionAcerca_de">
    <property name="text">
-    <string>Acerca de...</string>
+    <string>&amp;Acerca de...</string>
    </property>
   </action>
  </widget>

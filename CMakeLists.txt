@@ -22,6 +22,7 @@ qt5_wrap_ui(shaderviewer_SRC src/ShaderViewer.ui)
 add_executable(shaderviewer ${shaderviewer_SRC})
 
 # Use the Widgets module from Qt 5.
+target_link_libraries(shaderviewer Qt5::Core)
 target_link_libraries(shaderviewer Qt5::Widgets)
 
 # Install the executable
