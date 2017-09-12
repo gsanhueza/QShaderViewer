@@ -31,11 +31,11 @@
    </property>
    <widget class="QMenu" name="menuArchivo">
     <property name="title">
-     <string>Archivo</string>
+     <string>Ar&amp;chivo</string>
     </property>
-    <addaction name="actionCargar_Geometria"/>
-    <addaction name="actionCargar_Vertex"/>
-    <addaction name="actionCargar_Fragment"/>
+    <addaction name="actionCargarGeometra"/>
+    <addaction name="actionCargarVertex"/>
+    <addaction name="actionCargarShader"/>
     <addaction name="separator"/>
     <addaction name="actionSalir"/>
    </widget>
@@ -45,40 +45,40 @@
     </property>
     <addaction name="actionTutorial"/>
     <addaction name="separator"/>
-    <addaction name="actionAcerca_de"/>
+    <addaction name="actionAcercaDe"/>
    </widget>
    <addaction name="menuArchivo"/>
    <addaction name="menuAyuda"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionCargar_Geometria">
-   <property name="text">
-    <string>&amp;Cargar Geometría</string>
-   </property>
-  </action>
-  <action name="actionCargar_Vertex">
-   <property name="text">
-    <string>&amp;Cargar Vertex</string>
-   </property>
-  </action>
-  <action name="actionCargar_Fragment">
-   <property name="text">
-    <string>&amp;Cargar Fragment</string>
-   </property>
-  </action>
-  <action name="actionSalir">
-   <property name="text">
-    <string>&amp;Salir</string>
-   </property>
-  </action>
   <action name="actionTutorial">
    <property name="text">
     <string>&amp;Tutorial</string>
    </property>
   </action>
-  <action name="actionAcerca_de">
+  <action name="actionAcercaDe">
    <property name="text">
     <string>&amp;Acerca de...</string>
+   </property>
+  </action>
+  <action name="actionCargarGeometra">
+   <property name="text">
+    <string>&amp;Cargar Geometría</string>
+   </property>
+  </action>
+  <action name="actionCargarVertex">
+   <property name="text">
+    <string>Cargar &amp;Vertex</string>
+   </property>
+  </action>
+  <action name="actionCargarShader">
+   <property name="text">
+    <string>Cargar &amp;Shader</string>
+   </property>
+  </action>
+  <action name="actionSalir">
+   <property name="text">
+    <string>Salir</string>
    </property>
   </action>
  </widget>
