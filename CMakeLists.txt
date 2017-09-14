@@ -8,6 +8,7 @@ set(CMAKE_AUTOMOC ON)
 
 # Find the QtWidgets library
 find_package(Qt5Widgets REQUIRED)
+find_package(Qt5OpenGL REQUIRED)
 
 set(shaderviewer_SRC
   src/main.cpp
@@ -24,6 +25,7 @@ add_executable(shaderviewer ${shaderviewer_SRC})
 
 # Use the Widgets module from Qt 5.
 target_link_libraries(shaderviewer Qt5::Widgets)
+target_link_libraries(shaderviewer Qt5::OpenGL)
 
 # Install the executable
 install(TARGETS shaderviewer DESTINATION bin)

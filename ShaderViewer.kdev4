@@ -1,3 +1,4 @@
 [Project]
-Name=ShaderViewer
+CreatedFrom=CMakeLists.txt
 Manager=KDevCMakeManager
+Name=ShaderViewer
