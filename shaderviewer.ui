@@ -32,11 +32,11 @@
    </property>
    <widget class="QMenu" name="menuArchivo">
     <property name="title">
-     <string>Ar&amp;chivo</string>
+    <string>&amp;Archivo</string>
     </property>
     <addaction name="actionCargarGeometra"/>
     <addaction name="actionCargarVertex"/>
-    <addaction name="actionCargarShader"/>
+    <addaction name="actionCargarFragment"/>
     <addaction name="separator"/>
     <addaction name="actionSalir"/>
    </widget>
@@ -64,7 +64,7 @@
   </action>
   <action name="actionCargarGeometra">
    <property name="text">
-    <string>&amp;Cargar Geometría</string>
+    <string>Cargar &amp;Geometría</string>
    </property>
   </action>
   <action name="actionCargarVertex">
@@ -72,14 +72,14 @@
     <string>Cargar &amp;Vertex</string>
    </property>
   </action>
-  <action name="actionCargarShader">
+  <action name="actionCargarFragment">
    <property name="text">
-    <string>Cargar &amp;Shader</string>
+    <string>Cargar &amp;Fragment</string>
    </property>
   </action>
   <action name="actionSalir">
    <property name="text">
-    <string>Sa&amp;lir</string>
+    <string>&amp;Salir</string>
    </property>
   </action>
  </widget>
