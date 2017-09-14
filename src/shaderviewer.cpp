@@ -18,18 +18,31 @@ ShaderViewer::~ShaderViewer()
 
 void ShaderViewer::loadGeometryClicked()
 {
-    std::cout << "Test loadGeometryClicked()" << std::endl;
-    m_model.loadGeometry("TODO: filepath va aquí");
+    std::cout << "SHADERVIEWER: loadGeometryClicked()" << std::endl;
+
+    if (m_model.loadGeometry("TODO: filepath va aquí"))
+    {
+        std::cout << "SHADERVIEWER: Geometry cargado, actualizar status bar" << std::endl;
+        std::cout << "SHADERVIEWER: Esperar todos los datos, mostrar después con OGLWidget" << std::endl;
+    }
 }
 
 void ShaderViewer::loadVertexClicked()
 {
-    std::cout << "Test loadVertexClicked()" << std::endl;
-    m_model.loadVertexShader("TODO: filepath va aquí");
+    std::cout << "SHADERVIEWER: loadVertexClicked()" << std::endl;
+    if (m_model.loadVertexShader("TODO: filepath va aquí"))
+    {
+        std::cout << "SHADERVIEWER: Vertex cargado, actualizar status bar" << std::endl;
+        std::cout << "SHADERVIEWER: Esperar todos los datos, mostrar después con OGLWidget" << std::endl;
+    }
 }
 
 void ShaderViewer::loadFragmentClicked()
 {
-    std::cout << "Test loadFragmentClicked()" << std::endl;
-    m_model.loadFragmentShader("TODO: filepath va aquí");
+    std::cout << "SHADERVIEWER: loadFragmentClicked()" << std::endl;
+    if (m_model.loadFragmentShader("TODO: filepath va aquí"))
+    {
+        std::cout << "SHADERVIEWER: Fragment cargado, actualizar status bar" << std::endl;
+        std::cout << "SHADERVIEWER: Esperar todos los datos, mostrar después con OGLWidget" << std::endl;
+    }
 }
