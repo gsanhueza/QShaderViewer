@@ -15,6 +15,10 @@ ShaderViewer::~ShaderViewer()
     delete ui;
 }
 
+Model ShaderViewer::getModel()
+{
+    return m_model;
+}
 
 void ShaderViewer::loadGeometryClicked()
 {

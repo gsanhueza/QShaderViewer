@@ -21,6 +21,7 @@ void OGLWidget::initializeGL()
 
 void OGLWidget::paintGL()
 {
+//     m_model.getCoordinates();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glBegin(GL_POLYGON);

@@ -6,6 +6,8 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 
+#include "model.h"
+
 class OGLWidget : public QOpenGLWidget
 {
 public:

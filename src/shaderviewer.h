@@ -17,6 +17,8 @@ public:
     explicit ShaderViewer(Model model, QWidget *parent = nullptr);
     ~ShaderViewer();
 
+    Model getModel();
+
 public slots:
     void loadGeometryClicked();
     void loadVertexClicked();
