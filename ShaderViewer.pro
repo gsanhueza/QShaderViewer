@@ -11,3 +11,5 @@ SOURCES += src/main.cpp \
 
 HEADERS += src/shaderviewer.h \
     src/oglwidget.h
+
+LIBS += -lglut -LGLU
