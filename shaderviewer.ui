@@ -121,7 +121,39 @@
    <sender>actionCargarGeometra</sender>
    <signal>triggered()</signal>
    <receiver>ShaderViewer</receiver>
-    <slot>loadGeometryClicked()</slot>
+   <slot>loadGeometryClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>639</x>
+     <y>359</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCargarVertex</sender>
+   <signal>triggered()</signal>
+   <receiver>ShaderViewer</receiver>
+   <slot>loadVertexClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>639</x>
+     <y>359</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCargarFragment</sender>
+   <signal>triggered()</signal>
+   <receiver>ShaderViewer</receiver>
+   <slot>loadFragmentClicked()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
