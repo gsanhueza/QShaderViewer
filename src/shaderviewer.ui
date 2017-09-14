@@ -17,7 +17,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <widget class="QOpenGLWidget" name="openGLWidget"/>
+     <widget class="OGLWidget" name="openGLWidget"/>
     </item>
    </layout>
   </widget>
@@ -79,10 +79,17 @@
   </action>
   <action name="actionSalir">
    <property name="text">
-    <string>Salir</string>
+    <string>Sa&amp;lir</string>
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>OGLWidget</class>
+   <extends>QOpenGLWidget</extends>
+   <header>oglwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
