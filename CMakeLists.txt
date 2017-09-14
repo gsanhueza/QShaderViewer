@@ -12,6 +12,7 @@ find_package(Qt5Widgets REQUIRED)
 set(shaderviewer_SRC
   src/main.cpp
   src/shaderviewer.cpp
+  src/oglwidget.cpp
 )
 
 # Create code from a list of Qt designer ui files.
