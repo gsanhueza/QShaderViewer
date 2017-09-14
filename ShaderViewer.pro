@@ -3,7 +3,7 @@ QT += core gui opengl widgets
 TARGET = shaderviewer
 TEMPLATE = app
 
-FORMS += src/shaderviewer.ui
+FORMS += shaderviewer.ui
 
 SOURCES += src/main.cpp \
         src/shaderviewer.cpp \
