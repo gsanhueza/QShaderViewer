@@ -18,9 +18,10 @@ ShaderViewer::~ShaderViewer()
 
 void ShaderViewer::loadGeometryClicked()
 {
-    std::cout << "SHADERVIEWER: loadGeometryClicked()" << std::endl;
+    QString filepath = QFileDialog::getOpenFileName(this);
 
-    if (m_model.loadGeometry("TODO: filepath va aquí"))
+    std::cout << "SHADERVIEWER: loadGeometryClicked()" << std::endl;
+    if (m_model.loadGeometry(filepath.toStdString()))
     {
         std::cout << "SHADERVIEWER: Geometry cargado, actualizar status bar" << std::endl;
         std::cout << "SHADERVIEWER: Esperar todos los datos, mostrar después con OGLWidget" << std::endl;
@@ -29,8 +30,10 @@ void ShaderViewer::loadGeometryClicked()
 
 void ShaderViewer::loadVertexClicked()
 {
+    QString filepath = QFileDialog::getOpenFileName(this);
+
     std::cout << "SHADERVIEWER: loadVertexClicked()" << std::endl;
-    if (m_model.loadVertexShader("TODO: filepath va aquí"))
+    if (m_model.loadVertexShader(filepath.toStdString()))
     {
         std::cout << "SHADERVIEWER: Vertex cargado, actualizar status bar" << std::endl;
         std::cout << "SHADERVIEWER: Esperar todos los datos, mostrar después con OGLWidget" << std::endl;
@@ -39,8 +42,10 @@ void ShaderViewer::loadVertexClicked()
 
 void ShaderViewer::loadFragmentClicked()
 {
+    QString filepath = QFileDialog::getOpenFileName(this);
+
     std::cout << "SHADERVIEWER: loadFragmentClicked()" << std::endl;
-    if (m_model.loadFragmentShader("TODO: filepath va aquí"))
+    if (m_model.loadFragmentShader(filepath.toStdString()))
     {
         std::cout << "SHADERVIEWER: Fragment cargado, actualizar status bar" << std::endl;
         std::cout << "SHADERVIEWER: Esperar todos los datos, mostrar después con OGLWidget" << std::endl;

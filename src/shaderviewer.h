@@ -2,6 +2,7 @@
 #define _SHADERVIEWER_H_
 
 #include <QMainWindow>
+#include <QFileDialog>
 #include "model.h"
 
 namespace Ui {
