@@ -32,7 +32,7 @@
    </property>
    <widget class="QMenu" name="menuArchivo">
     <property name="title">
-    <string>&amp;Archivo</string>
+     <string>&amp;Archivo</string>
     </property>
     <addaction name="actionCargarGeometra"/>
     <addaction name="actionCargarVertex"/>
@@ -63,16 +63,25 @@
    </property>
   </action>
   <action name="actionCargarGeometra">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Cargar &amp;Geometría</string>
    </property>
   </action>
   <action name="actionCargarVertex">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Cargar &amp;Vertex</string>
    </property>
   </action>
   <action name="actionCargarFragment">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="text">
     <string>Cargar &amp;Fragment</string>
    </property>
@@ -97,6 +106,22 @@
    <signal>triggered()</signal>
    <receiver>ShaderViewer</receiver>
    <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>639</x>
+     <y>359</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionCargarGeometra</sender>
+   <signal>triggered()</signal>
+   <receiver>ShaderViewer</receiver>
+    <slot>loadGeometryClicked()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

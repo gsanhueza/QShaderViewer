@@ -1,11 +1,13 @@
-#include "shaderviewer.h"
 #include <QApplication>
+#include "shaderviewer.h"
+#include "model.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    ShaderViewer w;
-    w.show();
+    Model model;
+    ShaderViewer viewer(model);
+    viewer.show();
 
     return app.exec();
 }
