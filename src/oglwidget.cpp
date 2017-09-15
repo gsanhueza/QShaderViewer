@@ -26,7 +26,10 @@ void OGLWidget::paintGL()
     glBegin(GL_POLYGON);
     for (vector<float> point : m_model.getCoordinates())
     {
-        glColor3f ( 1.0,  0.0,  0.0);
+        float R = static_cast<double>(rand()) / RAND_MAX;
+        float G = static_cast<double>(rand()) / RAND_MAX;
+        float B = static_cast<double>(rand()) / RAND_MAX;
+        glColor3f (R, G, B);
         glVertex3f(point.at(0) / 10, point.at(1) / 10, point.at(2) / 10);
     }
     glEnd();
