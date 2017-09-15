@@ -15,8 +15,13 @@ vector<vector<float>> Model::getCoordinates()
 
 bool Model::loadGeometry(string filepath)
 {
+    if (filepath == "")
+    {
+        return false;
+    }
     cout << "MODEL: Cargando geometría... (" << filepath << ")" << endl;
 
+    // FIXME Se necesita un mejor lector de archivos
     try
     {
         ifstream myFile(filepath);

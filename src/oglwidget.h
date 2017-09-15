@@ -10,9 +10,14 @@
 
 class OGLWidget : public QOpenGLWidget
 {
+    Q_OBJECT;
+
 public:
     OGLWidget(QWidget *parent = nullptr);
     ~OGLWidget();
+
+public slots:
+    void receiveModel(const Model &m);
 
 protected:
     void initializeGL();
@@ -21,9 +26,5 @@ protected:
 
 private:
     Model m_model;
-
-public slots:
-    void receiveModel(Model &m);
 };
-
 #endif

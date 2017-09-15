@@ -185,7 +185,4 @@
    </hints>
   </connection>
  </connections>
- <slots>
-  <signal>emitModel(Model)</signal>
- </slots>
 </ui>

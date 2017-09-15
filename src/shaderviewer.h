@@ -17,15 +17,13 @@ public:
     explicit ShaderViewer(Model model, QWidget *parent = nullptr);
     ~ShaderViewer();
 
-    Model getModel();
-
 public slots:
     void loadGeometryClicked();
     void loadVertexClicked();
     void loadFragmentClicked();
 
 signals:
-    void emitModel(Model &m);
+    void emitModel(const Model &m);
 
 private:
     Ui::ShaderViewer *ui;

@@ -15,11 +15,6 @@ ShaderViewer::~ShaderViewer()
     delete ui;
 }
 
-Model ShaderViewer::getModel()
-{
-    return m_model;
-}
-
 void ShaderViewer::loadGeometryClicked()
 {
     QString filepath = QFileDialog::getOpenFileName(this);
@@ -29,9 +24,15 @@ void ShaderViewer::loadGeometryClicked()
     {
         std::cout << "SHADERVIEWER: Geometry cargado, actualizar status bar" << std::endl;
         std::cout << "SHADERVIEWER: Esperar todos los datos, mostrar después con OGLWidget" << std::endl;
+        std::cout << "SHADERVIEWER: Emitiendo señal..." << std::endl;
+        emit emitModel(m_model);
+        ui->actionCargarGeometra->setChecked(true);
     }
-
-    emit emitModel(m_model);
+    else
+    {
+        std::cout << "SHADERVIEWER: Fallo al cargar archivo" << std::endl;
+        ui->actionCargarGeometra->setChecked(false);
+    }
 }
 
 void ShaderViewer::loadVertexClicked()
