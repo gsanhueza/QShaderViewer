@@ -2,10 +2,8 @@
 #define _MODEL_H_
 
 #include <iostream>
-#include <fstream>
-#include <sstream>
 #include <vector>
-#include "offreader.h"
+#include "geometryreader.h"
 
 using namespace std;
 
@@ -22,7 +20,7 @@ public:
     vector<vector<float>> getCoordinates();
 
 private:
-    OFFReader m_offreader;
+    GeometryReader m_georeader;
     vector<vector<float>> m_coordinates;
     // TODO Hacer un lector genérico de archivos, para los shaders
 };
