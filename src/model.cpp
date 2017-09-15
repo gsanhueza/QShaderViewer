@@ -15,14 +15,9 @@ vector<vector<float>> Model::getCoordinates()
 
 bool Model::loadGeometry(string filepath)
 {
-    if (filepath == "")
-    {
-        return false;
-    }
     cout << "MODEL: Cargando geometría... (" << filepath << ")" << endl;
 
     return m_georeader.loadFile(m_coordinates, filepath);
-
 }
 
 bool Model::loadVertexShader(string filepath)

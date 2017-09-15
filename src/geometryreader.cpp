@@ -10,6 +10,11 @@ GeometryReader::~GeometryReader()
 
 bool GeometryReader::loadFile(vector<vector<float> > &coordinates, string filepath)
 {
+    if (filepath == "")
+    {
+        return false;
+    }
+
     try
     {
         ifstream myFile(filepath);
