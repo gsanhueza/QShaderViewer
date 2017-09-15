@@ -33,6 +33,7 @@ void OGLWidget::paintGL()
         glVertex3f(point.at(0) / 10, point.at(1) / 10, point.at(2) / 10);
     }
     glEnd();
+    update();
 }
 
 void OGLWidget::resizeGL(int w, int h)
