@@ -24,6 +24,9 @@ public slots:
     void loadVertexClicked();
     void loadFragmentClicked();
 
+signals:
+    void emitModel(Model &m);
+
 private:
     Ui::ShaderViewer *ui;
     Model m_model;

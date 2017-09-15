@@ -30,6 +30,8 @@ void ShaderViewer::loadGeometryClicked()
         std::cout << "SHADERVIEWER: Geometry cargado, actualizar status bar" << std::endl;
         std::cout << "SHADERVIEWER: Esperar todos los datos, mostrar después con OGLWidget" << std::endl;
     }
+
+    emit emitModel(m_model);
 }
 
 void ShaderViewer::loadVertexClicked()

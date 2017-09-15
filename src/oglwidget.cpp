@@ -21,17 +21,16 @@ void OGLWidget::initializeGL()
 
 void OGLWidget::paintGL()
 {
-//     m_model.getCoordinates();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glBegin(GL_POLYGON);
-        glColor3f ( 1.0,  0.0,  0.0);
+//         glColor3f ( 1.0,  0.0,  0.0);
         glVertex3f(-0.5, -0.5,  0.0);
-        glColor3f ( 0.0,  1.0,  0.0);
+//         glColor3f ( 0.0,  1.0,  0.0);
         glVertex3f( 0.5, -0.5,  0.0);
-        glColor3f ( 0.0,  0.0,  1.0);
+//         glColor3f ( 0.0,  0.0,  1.0);
         glVertex3f( 0.5,  0.5,  0.0);
-        glColor3f ( 0.0,  0.0,  1.0);
+//         glColor3f ( 0.0,  0.0,  1.0);
         glVertex3f( -0.5,  0.5,  0.0);
     glEnd();
 }
@@ -47,3 +46,8 @@ void OGLWidget::resizeGL(int w, int h)
 //     gluLookAt(0, 0, 5, 0, 0, 0, 0, 1, 0);
 }
 
+void OGLWidget::receiveModel(Model& m)
+{
+    std::cout << "** TEST **" << std::endl;
+    m_model = m;
+}

@@ -97,6 +97,9 @@
    <class>OGLWidget</class>
    <extends>QOpenGLWidget</extends>
    <header>src/oglwidget.h</header>
+   <slots>
+    <slot>receiveModel(Model)</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -165,5 +168,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>ShaderViewer</sender>
+   <signal>emitModel(Model)</signal>
+   <receiver>openGLWidget</receiver>
+   <slot>receiveModel(Model)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>639</x>
+     <y>359</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>639</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <signal>emitModel(Model)</signal>
+ </slots>
 </ui>

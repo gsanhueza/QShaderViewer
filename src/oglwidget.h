@@ -18,6 +18,12 @@ protected:
     void initializeGL();
     void resizeGL(int w, int h);
     void paintGL();
+
+private:
+    Model m_model;
+
+public slots:
+    void receiveModel(Model &m);
 };
 
 #endif
