@@ -51,6 +51,7 @@ protected:
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
+    void keyPressEvent(QKeyEvent *event) override;
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
 
@@ -75,6 +76,8 @@ private:
     int m_xRot;
     int m_yRot;
     int m_zRot;
+
+    float m_zCamPos;
 
     QVector<GLfloat> m_data;
 };
