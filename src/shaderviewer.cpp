@@ -83,3 +83,22 @@ void ShaderViewer::loadFragmentClicked()
         emit emitModel(m_model);
     }
 }
+
+void ShaderViewer::loadTutorialClicked()
+{
+    // TODO Mostrar ventana nueva para el tutorial.
+    QWidget(w);
+    ui->statusbar->showMessage("Tutorial clicked.");
+
+    w.show();
+}
+
+void ShaderViewer::loadAboutClicked()
+{
+    // TODO Mostrar ventana nueva para el acerca de.
+    QWidget(w);
+    ui->statusbar->showMessage("About clicked.");
+
+    w.show();
+}
+

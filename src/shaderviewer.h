@@ -55,6 +55,18 @@ public slots:
      */
     void loadFragmentClicked();
 
+    /**
+     * @brief Receiver of a Qt signal when the Help -> Tutorial action is clicked in the window.
+     *
+     */
+    void loadTutorialClicked();
+
+    /**
+     * @brief Receiver of a Qt signal when the Help -> About action is clicked in the window.
+     *
+     */
+    void loadAboutClicked();
+
 signals:
     /**
      * @brief Emitter of a Qt signal when the model has to be loaded into OGLWidget.
