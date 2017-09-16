@@ -16,26 +16,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _GEOMETRYREADER_H_
-#define _GEOMETRYREADER_H_
+#include "tutorial.h"
+#include "ui_tutorial.h"
 
-#include <vector>
-#include <fstream>
-#include <sstream>
-
-using namespace std;
-
-class GeometryReader
+Tutorial::Tutorial(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::Tutorial)
 {
-public:
-    GeometryReader();
-    ~GeometryReader();
+    ui->setupUi(this);
 
-    bool loadFile(vector<vector<float>> &coordinates, string filepath);
+    int screenWidth = QApplication::desktop()->width();
+    int screenHeight = QApplication::desktop()->height();
 
-private:
-    string data;
+    int x = (screenWidth - this->width()) / 2;
+    int y = (screenHeight - this->height()) / 2;
+    this->move(x, y);
+}
 
-};
-
-#endif
+Tutorial::~Tutorial()
+{
+    delete ui;
+}

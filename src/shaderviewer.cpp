@@ -4,14 +4,25 @@
 ShaderViewer::ShaderViewer(Model model, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ShaderViewer),
+    m_tutorial(new Tutorial),
+    m_about(new About),
     m_model(model)
 {
     ui->setupUi(this);
     ui->statusbar->showMessage("Load your files to show them in the screen.");
+
+    int screenWidth = QApplication::desktop()->width();
+    int screenHeight = QApplication::desktop()->height();
+
+    int x = (screenWidth - this->width()) / 2;
+    int y = (screenHeight - this->height()) / 2;
+    this->move(x, y);
 }
 
 ShaderViewer::~ShaderViewer()
 {
+    delete m_tutorial;
+    delete m_about;
     delete ui;
 }
 
@@ -86,19 +97,11 @@ void ShaderViewer::loadFragmentClicked()
 
 void ShaderViewer::loadTutorialClicked()
 {
-    // TODO Mostrar ventana nueva para el tutorial.
-    QWidget(w);
-    ui->statusbar->showMessage("Tutorial clicked.");
-
-    w.show();
+    m_tutorial->show();
 }
 
 void ShaderViewer::loadAboutClicked()
 {
-    // TODO Mostrar ventana nueva para el acerca de.
-    QWidget(w);
-    ui->statusbar->showMessage("About clicked.");
-
-    w.show();
+    m_about->show();
 }
 
