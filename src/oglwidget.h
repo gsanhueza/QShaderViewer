@@ -31,6 +31,7 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 
+#include "logo.h"
 #include "model.h"
 
 class OGLWidget : public QOpenGLWidget, protected QOpenGLFunctions
@@ -78,5 +79,6 @@ private:
     int m_zRot;
 
     QVector<GLfloat> m_data;
+    Logo m_logo;
 };
 #endif

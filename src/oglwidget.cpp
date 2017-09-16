@@ -110,12 +110,14 @@ void OGLWidget::paintGL()
         m_data.append(static_cast<float>(point.at(2)) / 100);
     }
 
-    m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat));
+    m_vbo.allocate(m_logo.constData(), m_logo.count() * sizeof(GLfloat));
+//     m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat));
 
     // Store the vertex attribute bindings for the program.
     setupVertexAttribs();
 
-    glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3);
+//     glDrawArrays(GL_TRIANGLES, 0, m_data.count());
+    glDrawArrays(GL_TRIANGLES, 0, m_logo.vertexCount());
 
     m_program->release();
 }
@@ -153,6 +155,7 @@ void OGLWidget::keyPressed(QKeyEvent *event)
 
 void OGLWidget::mousePressEvent(QMouseEvent *event)
 {
+    std::cout << "mousePressEvent" << std::endl;
     m_lastPos = event->pos();
 }
 
