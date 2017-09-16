@@ -23,6 +23,9 @@ public:
     inline bool isFragmentLoaded();
     bool isEverythingLoaded();
 
+    string getVertexPath();
+    string getFragmentPath();
+
 private:
     GeometryReader m_georeader;
     vector<vector<float>> m_coordinates;

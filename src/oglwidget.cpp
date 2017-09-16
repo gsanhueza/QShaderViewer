@@ -53,8 +53,8 @@ void OGLWidget::initializeGL()
 void OGLWidget::generateGLProgram()
 {
     m_program = new QOpenGLShaderProgram;
-    m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../data/vertex.glsl");
-    m_program->addShaderFromSourceFile(QOpenGLShader::Fragment,  "../data/fragment.glsl");
+    m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, QString(m_model.getVertexPath().c_str()));
+    m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, QString(m_model.getFragmentPath().c_str()));
     m_program->bindAttributeLocation("vertex", 0);
     m_program->bindAttributeLocation("normal", 1);
     m_program->link();

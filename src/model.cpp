@@ -72,3 +72,13 @@ bool Model::isEverythingLoaded()
 {
     return m_geometryLoaded and m_vertexLoaded and m_fragmentLoaded;
 }
+
+string Model::getVertexPath()
+{
+    return m_vertexPath;
+}
+
+string Model::getFragmentPath()
+{
+    return m_fragmentPath;
+}

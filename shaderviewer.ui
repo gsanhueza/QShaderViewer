@@ -51,7 +51,11 @@
    <addaction name="menuArchivo"/>
    <addaction name="menuAyuda"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="styleSheet">
+    <string notr="true">asdf</string>
+   </property>
+  </widget>
   <action name="actionTutorial">
    <property name="text">
     <string>&amp;Tutorial</string>

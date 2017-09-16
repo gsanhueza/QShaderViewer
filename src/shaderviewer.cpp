@@ -18,6 +18,7 @@ ShaderViewer::ShaderViewer(Model model, QWidget *parent) :
     m_model(model)
 {
     ui->setupUi(this);
+    ui->statusbar->showMessage("Cargue sus archivos para mostrarlos en pantalla.");
 }
 
 ShaderViewer::~ShaderViewer()
@@ -35,6 +36,7 @@ void ShaderViewer::loadGeometryClicked()
         svdebug("SHADERVIEWER: Geometry cargado, actualizar status bar");
         svdebug("SHADERVIEWER: Esperar todos los datos, mostrar después con OGLWidget");
         ui->actionCargarGeometra->setChecked(true);
+        ui->statusbar->showMessage("Geometría cargada.");
     }
     else
     {
@@ -46,6 +48,7 @@ void ShaderViewer::loadGeometryClicked()
     if (m_model.isEverythingLoaded())
     {
         svdebug("SHADERVIEWER: Emitiendo señal...");
+        ui->statusbar->showMessage("Listo.");
         emit emitModel(m_model);
     }
 }
@@ -59,6 +62,8 @@ void ShaderViewer::loadVertexClicked()
     {
         svdebug("SHADERVIEWER: Vertex cargado, actualizar status bar");
         svdebug("SHADERVIEWER: Esperar todos los datos, mostrar después con OGLWidget");
+        ui->actionCargarVertex->setChecked(true);
+        ui->statusbar->showMessage("Vertex cargado.");
     }
     else
     {
@@ -70,6 +75,7 @@ void ShaderViewer::loadVertexClicked()
     if (m_model.isEverythingLoaded())
     {
         svdebug("SHADERVIEWER: Emitiendo señal...");
+        ui->statusbar->showMessage("Listo.");
         emit emitModel(m_model);
     }
 }
@@ -83,6 +89,8 @@ void ShaderViewer::loadFragmentClicked()
     {
         svdebug("SHADERVIEWER: Fragment cargado, actualizar status bar");
         svdebug("SHADERVIEWER: Esperar todos los datos, mostrar después con OGLWidget");
+        ui->actionCargarVertex->setChecked(true);
+        ui->statusbar->showMessage("Fragment cargado.");
     }
     else
     {
@@ -94,6 +102,7 @@ void ShaderViewer::loadFragmentClicked()
     if (m_model.isEverythingLoaded())
     {
         svdebug("SHADERVIEWER: Emitiendo señal...");
+        ui->statusbar->showMessage("Listo.");
         emit emitModel(m_model);
     }
 }
