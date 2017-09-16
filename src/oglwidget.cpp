@@ -73,27 +73,7 @@ void OGLWidget::initializeGL()
     m_vao.create();
     QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
 
-//     // Setup our vertex buffer object.
-//     m_vbo.create();
-//     m_vbo.bind();
-//
-// //     FIXME Parece que aquí se ponen los vértices de mi polígono
-//     m_data.append(QVector<GLfloat>
-//     { -1, 0, 0,
-//         0,  0, 0,
-//         1, -1, 0 });
-// //     FIXME Esto no debería estar en initializeGL, sino que en paintGL
-// //     for (vector<float> point : m_model.getCoordinates())
-// //     {
-// //         m_data.append(static_cast<float>(point.at(0)) / 100);
-// //         m_data.append(static_cast<float>(point.at(1)) / 100);
-// //         m_data.append(static_cast<float>(point.at(2)) / 100);
-// //     }
-//
-//     m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat));
-//
-//     // Store the vertex attribute bindings for the program.
-//     setupVertexAttribs();
+    // Here you can write fixed geometries, if you don't need to load them more than once.
 
     // Our camera never changes in this example.
     m_camera.setToIdentity();
@@ -107,12 +87,13 @@ void OGLWidget::initializeGL()
 
 void OGLWidget::paintGL()
 {
-    glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 
     m_world.setToIdentity();
+
+    // Allow rotation of the world
     int m_xRot = 0;
     int m_yRot = 0;
     int m_zRot = 0;
@@ -131,39 +112,15 @@ void OGLWidget::paintGL()
     m_vbo.create();
     m_vbo.bind();
 
-    srand(time(0));
-    int r = rand() % 1000;
-
     m_data.clear();
-    cout << "test" << r << endl;
-    if (r % 2)
-    {
-        m_data.append(QVector<GLfloat>{-1, -1, 0});
-        m_data.append(QVector<GLfloat>{0, 0.8, 0});
-        m_data.append(QVector<GLfloat>{1, -1, 0});
-    }
-    else
-    {
-        m_data.append(QVector<GLfloat>{1, 1, 0});
-        m_data.append(QVector<GLfloat>{0, -0.8, 0});
-        m_data.append(QVector<GLfloat>{-1, 1, 0});
-    }
 
-//     FIXME Parece que aquí se ponen los vértices de mi polígono
-//     FIXME Deberíamos llamar a update solo cuando se emite la señal recibida por este SLOT
-//     m_data.append(QVector<GLfloat>
-//     { -1, -1, 0,
-//         0, (static_cast<float>(rand()) / RAND_MAX), 0,
-//         1, -1, 0 });
-
-//     for (vector<float> point : m_model.getCoordinates())
-//     {
-//         m_data.append(static_cast<float>(point.at(0)) / 100);
-//         m_data.append(static_cast<float>(point.at(1)) / 100);
-//         m_data.append(static_cast<float>(point.at(2)) / 100);
-//
-//         std::cout << static_cast<float>(point.at(0)) / 100 << std::endl;
-//     }
+    // Load geometry from local file
+    for (vector<float> point : m_model.getCoordinates())
+    {
+        m_data.append(static_cast<float>(point.at(0)) / 100);
+        m_data.append(static_cast<float>(point.at(1)) / 100);
+        m_data.append(static_cast<float>(point.at(2)) / 100);
+    }
 
     m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat));
 
@@ -173,7 +130,6 @@ void OGLWidget::paintGL()
     glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3);
 
     m_program->release();
-    update();
 }
 
 void OGLWidget::resizeGL(int w, int h)
@@ -186,4 +142,5 @@ void OGLWidget::receiveModel(const Model &m)
 {
     std::cout << "OGLWIDGET: Recibiendo señal" << std::endl;
     m_model = m;
+    update();
 }
