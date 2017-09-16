@@ -1,6 +1,19 @@
 #include "model.h"
 
-Model::Model()
+static const bool DEBUG = true;
+
+void mdldebug(string s)
+{
+    if (DEBUG)
+    {
+        std::cout << s << std::endl;
+    }
+}
+
+Model::Model() :
+    m_geometryLoaded(false),
+    m_vertexLoaded(false),
+    m_fragmentLoaded(false)
 {
 }
 
@@ -15,19 +28,47 @@ vector<vector<float>> Model::getCoordinates()
 
 bool Model::loadGeometry(string filepath)
 {
-    cout << "MODEL: Cargando geometría... (" << filepath << ")" << endl;
+    mdldebug("MODEL: Cargando geometría...");
+    m_geometryLoaded = m_georeader.loadFile(m_coordinates, filepath);
 
-    return m_georeader.loadFile(m_coordinates, filepath);
+    return m_geometryLoaded;
 }
 
 bool Model::loadVertexShader(string filepath)
 {
-    cout << "MODEL: Cargando vertex... (" << filepath << ")" << endl;
-    return true;
+    mdldebug("MODEL: Cargando vertex...");
+
+    m_vertexPath = filepath;
+    m_vertexLoaded = (filepath != "");
+
+    return m_vertexLoaded;
 }
 
 bool Model::loadFragmentShader(string filepath)
 {
-    cout << "MODEL: Cargando fragment... (" << filepath << ")" << endl;
-    return true;
+    mdldebug("MODEL: Cargando fragment...");
+    m_fragmentPath = filepath;
+    m_fragmentLoaded = (filepath != "");
+
+    return m_fragmentLoaded;
+}
+
+inline bool Model::isGeometryLoaded()
+{
+    return m_geometryLoaded;
+}
+
+inline bool Model::isVertexLoaded()
+{
+    return m_vertexLoaded;
+}
+
+inline bool Model::isFragmentLoaded()
+{
+    return m_fragmentLoaded;
+}
+
+bool Model::isEverythingLoaded()
+{
+    return m_geometryLoaded and m_vertexLoaded and m_fragmentLoaded;
 }

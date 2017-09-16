@@ -18,11 +18,21 @@ public:
     bool loadFragmentShader(string filepath);
 
     vector<vector<float>> getCoordinates();
+    inline bool isGeometryLoaded();
+    inline bool isVertexLoaded();
+    inline bool isFragmentLoaded();
+    bool isEverythingLoaded();
 
 private:
     GeometryReader m_georeader;
     vector<vector<float>> m_coordinates;
-    // TODO Hacer un lector genérico de archivos, para los shaders
+
+    bool m_geometryLoaded;
+    bool m_vertexLoaded;
+    bool m_fragmentLoaded;
+
+    string m_vertexPath;
+    string m_fragmentPath;
 };
 
 #endif
