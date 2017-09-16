@@ -7,7 +7,7 @@ ShaderViewer::ShaderViewer(Model model, QWidget *parent) :
     m_model(model)
 {
     ui->setupUi(this);
-    ui->statusbar->showMessage("Cargue sus archivos para mostrarlos en pantalla.");
+    ui->statusbar->showMessage("Load your files to show them in the screen.");
 }
 
 ShaderViewer::~ShaderViewer()
@@ -22,18 +22,18 @@ void ShaderViewer::loadGeometryClicked()
     if (m_model.loadGeometry(filepath.toStdString()))
     {
         ui->actionCargarGeometra->setChecked(true);
-        ui->statusbar->showMessage("Geometría cargada.");
+        ui->statusbar->showMessage("Geometry loaded.");
     }
     else
     {
         ui->actionCargarGeometra->setChecked(false);
-        ui->statusbar->showMessage("Fallo al cargar geometría.");
+        ui->statusbar->showMessage("Failed to load geometry.");
     }
 
-    // Enviar modelo solo si todo está cargado
+    // Send model to OGLWidget only if everything is already loaded.
     if (m_model.isEverythingLoaded())
     {
-        ui->statusbar->showMessage("Listo.");
+        ui->statusbar->showMessage("Ready.");
         emit emitModel(m_model);
     }
 }
@@ -45,18 +45,18 @@ void ShaderViewer::loadVertexClicked()
     if (m_model.loadVertexShader(filepath.toStdString()))
     {
         ui->actionCargarVertex->setChecked(true);
-        ui->statusbar->showMessage("Vertex cargado.");
+        ui->statusbar->showMessage("Vertex shader loaded.");
     }
     else
     {
         ui->actionCargarVertex->setChecked(false);
-        ui->statusbar->showMessage("Fallo al cargar vertex.");
+        ui->statusbar->showMessage("Failed to load vertex shader.");
     }
 
-    // Enviar modelo solo si todo está cargado
+    // Send model to OGLWidget only if everything is already loaded.
     if (m_model.isEverythingLoaded())
     {
-        ui->statusbar->showMessage("Listo.");
+        ui->statusbar->showMessage("Ready.");
         emit emitModel(m_model);
     }
 }
@@ -68,18 +68,18 @@ void ShaderViewer::loadFragmentClicked()
     if (m_model.loadFragmentShader(filepath.toStdString()))
     {
         ui->actionCargarVertex->setChecked(true);
-        ui->statusbar->showMessage("Fragment cargado.");
+        ui->statusbar->showMessage("Fragment shader loaded.");
     }
     else
     {
         ui->actionCargarFragment->setChecked(false);
-        ui->statusbar->showMessage("Fallo al cargar fragment.");
+        ui->statusbar->showMessage("Failed to load fragment shader.");
     }
 
-    // Enviar modelo solo si todo está cargado
+    // Send model to OGLWidget only if everything is already loaded.
     if (m_model.isEverythingLoaded())
     {
-        ui->statusbar->showMessage("Listo.");
+        ui->statusbar->showMessage("Ready.");
         emit emitModel(m_model);
     }
 }
