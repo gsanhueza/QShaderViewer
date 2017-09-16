@@ -28,20 +28,6 @@ OGLWidget::~OGLWidget()
     doneCurrent();
 }
 
-static const char *vertexShaderSource =
-"attribute vec4 vertex;\n"
-"attribute vec3 normal;\n"
-"varying vec3 vert;\n"
-"varying vec3 vertNormal;\n"
-"uniform mat4 projMatrix;\n"
-"uniform mat4 mvMatrix;\n"
-"uniform mat3 normalMatrix;\n"
-"void main() {\n"
-"   vert = vertex.xyz;\n"
-"   vertNormal = normalMatrix * normal;\n"
-"   gl_Position = projMatrix * mvMatrix * vertex;\n"
-"}\n";
-
 void OGLWidget::setupVertexAttribs()
 {
     m_vbo.bind();
@@ -57,10 +43,10 @@ void OGLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
 
-    //  FIXME Hacer que se cargue desde QFileDialog
+    // FIXME Hacer que se cargue desde QFileDialog
+    // FIXME Cambiar código del "m_program" a una funcion aparte, para poder volver a cargarla
     m_program = new QOpenGLShaderProgram;
-//     m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../data/vertex.glsl");
-    m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
+    m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../data/vertex.glsl");
     m_program->addShaderFromSourceFile(QOpenGLShader::Fragment,  "../data/fragment.glsl");
     m_program->bindAttributeLocation("vertex", 0);
     m_program->bindAttributeLocation("normal", 1);

@@ -8,6 +8,5 @@ uniform mat3 normalMatrix;
 void main() {
     vert = vertex.xyz;
     vertNormal = normalMatrix * normal;
-//    gl_Position = projMatrix * mvMatrix * vertex;
-    gl_Position = vertex;
-};
+   gl_Position = projMatrix * mvMatrix * vertex;
+}
