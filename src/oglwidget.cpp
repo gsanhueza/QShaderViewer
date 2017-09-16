@@ -107,6 +107,7 @@ void OGLWidget::initializeGL()
 
 void OGLWidget::paintGL()
 {
+    glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
@@ -126,16 +127,34 @@ void OGLWidget::paintGL()
     QMatrix3x3 normalMatrix = m_world.normalMatrix();
     m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
 
-
     // Setup our vertex buffer object.
     m_vbo.create();
     m_vbo.bind();
 
+    srand(time(0));
+    int r = rand() % 1000;
+
+    m_data.clear();
+    cout << "test" << r << endl;
+    if (r % 2)
+    {
+        m_data.append(QVector<GLfloat>{-1, -1, 0});
+        m_data.append(QVector<GLfloat>{0, 0.8, 0});
+        m_data.append(QVector<GLfloat>{1, -1, 0});
+    }
+    else
+    {
+        m_data.append(QVector<GLfloat>{1, 1, 0});
+        m_data.append(QVector<GLfloat>{0, -0.8, 0});
+        m_data.append(QVector<GLfloat>{-1, 1, 0});
+    }
+
 //     FIXME Parece que aquí se ponen los vértices de mi polígono
-    m_data.append(QVector<GLfloat>
-    { -1, -1, 0,
-        0,  1, 0,
-        1, -1, 0 });
+//     FIXME Deberíamos llamar a update solo cuando se emite la señal recibida por este SLOT
+//     m_data.append(QVector<GLfloat>
+//     { -1, -1, 0,
+//         0, (static_cast<float>(rand()) / RAND_MAX), 0,
+//         1, -1, 0 });
 
 //     for (vector<float> point : m_model.getCoordinates())
 //     {
@@ -151,11 +170,10 @@ void OGLWidget::paintGL()
     // Store the vertex attribute bindings for the program.
     setupVertexAttribs();
 
-
-
     glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3);
 
     m_program->release();
+    update();
 }
 
 void OGLWidget::resizeGL(int w, int h)
