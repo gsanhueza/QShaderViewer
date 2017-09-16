@@ -20,6 +20,7 @@
 #define _ABOUT_H_
 
 #include <QWidget>
+#include <QDesktopWidget>
 
 namespace Ui
 {

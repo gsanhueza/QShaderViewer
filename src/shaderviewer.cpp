@@ -10,6 +10,13 @@ ShaderViewer::ShaderViewer(Model model, QWidget *parent) :
 {
     ui->setupUi(this);
     ui->statusbar->showMessage("Load your files to show them in the screen.");
+
+    int screenWidth = QApplication::desktop()->width();
+    int screenHeight = QApplication::desktop()->height();
+
+    int x = (screenWidth - this->width()) / 2;
+    int y = (screenHeight - this->height()) / 2;
+    this->move(x, y);
 }
 
 ShaderViewer::~ShaderViewer()

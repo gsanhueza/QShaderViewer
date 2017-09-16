@@ -19,6 +19,7 @@
 #ifndef _SHADERVIEWER_H_
 #define _SHADERVIEWER_H_
 
+#include <QDesktopWidget>
 #include <QMainWindow>
 #include <QFileDialog>
 #include "about.h"

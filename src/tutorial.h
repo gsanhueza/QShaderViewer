@@ -19,6 +19,7 @@
 #ifndef TUTORIAL_H
 #define TUTORIAL_H
 
+#include <QDesktopWidget>
 #include <QWidget>
 
 namespace Ui

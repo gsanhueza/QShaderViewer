@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Gabriel Sanhueza</author>
  <class>Tutorial</class>
  <widget class="QWidget" name="Tutorial">
   <property name="geometry">
