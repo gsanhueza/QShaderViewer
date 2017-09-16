@@ -30,30 +30,29 @@
      <height>47</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuArchivo">
+   <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>&amp;Archivo</string>
+     <string>&amp;File</string>
     </property>
-    <addaction name="actionCargarGeometra"/>
-    <addaction name="actionCargarVertex"/>
-    <addaction name="actionCargarFragment"/>
+    <addaction name="actionLoadGeometry"/>
+    <addaction name="actionLoadVertex"/>
+    <addaction name="actionLoadFragment"/>
     <addaction name="separator"/>
-    <addaction name="actionSalir"/>
+    <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuAyuda">
+   <widget class="QMenu" name="menuHelp">
     <property name="title">
-     <string>A&amp;yuda</string>
+     <string>&amp;Help</string>
     </property>
     <addaction name="actionTutorial"/>
     <addaction name="separator"/>
-    <addaction name="actionAcercaDe"/>
+    <addaction name="actionAbout"/>
    </widget>
-   <addaction name="menuArchivo"/>
-   <addaction name="menuAyuda"/>
+   <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar">
    <property name="styleSheet">
-    <string notr="true">asdf</string>
    </property>
   </widget>
   <action name="actionTutorial">
@@ -61,38 +60,38 @@
     <string>&amp;Tutorial</string>
    </property>
   </action>
-  <action name="actionAcercaDe">
+  <action name="actionAbout">
    <property name="text">
-    <string>&amp;Acerca de...</string>
+    <string>&amp;About...</string>
    </property>
   </action>
-  <action name="actionCargarGeometra">
+  <action name="actionLoadGeometry">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Cargar &amp;Geometría</string>
+    <string>Load &amp;geometry file</string>
    </property>
   </action>
-  <action name="actionCargarVertex">
+  <action name="actionLoadVertex">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Cargar &amp;Vertex</string>
+    <string>Load &amp;vertex shader</string>
    </property>
   </action>
-  <action name="actionCargarFragment">
+  <action name="actionLoadFragment">
    <property name="checkable">
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Cargar &amp;Fragment</string>
+    <string>Load &amp;fragment shader</string>
    </property>
   </action>
-  <action name="actionSalir">
+  <action name="actionExit">
    <property name="text">
-    <string>&amp;Salir</string>
+    <string>&amp;Exit</string>
    </property>
   </action>
  </widget>
@@ -109,7 +108,7 @@
  <resources/>
  <connections>
   <connection>
-   <sender>actionSalir</sender>
+   <sender>actionExit</sender>
    <signal>triggered()</signal>
    <receiver>ShaderViewer</receiver>
    <slot>close()</slot>
@@ -125,7 +124,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionCargarGeometra</sender>
+   <sender>actionLoadGeometry</sender>
    <signal>triggered()</signal>
    <receiver>ShaderViewer</receiver>
    <slot>loadGeometryClicked()</slot>
@@ -141,7 +140,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionCargarVertex</sender>
+   <sender>actionLoadVertex</sender>
    <signal>triggered()</signal>
    <receiver>ShaderViewer</receiver>
    <slot>loadVertexClicked()</slot>
@@ -157,7 +156,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionCargarFragment</sender>
+   <sender>actionLoadFragment</sender>
    <signal>triggered()</signal>
    <receiver>ShaderViewer</receiver>
    <slot>loadFragmentClicked()</slot>

@@ -21,12 +21,12 @@ void ShaderViewer::loadGeometryClicked()
 
     if (m_model.loadGeometry(filepath.toStdString()))
     {
-        ui->actionCargarGeometra->setChecked(true);
+        ui->actionLoadGeometry->setChecked(true);
         ui->statusbar->showMessage("Geometry loaded.");
     }
     else
     {
-        ui->actionCargarGeometra->setChecked(false);
+        ui->actionLoadGeometry->setChecked(false);
         ui->statusbar->showMessage("Failed to load geometry.");
     }
 
@@ -44,12 +44,12 @@ void ShaderViewer::loadVertexClicked()
 
     if (m_model.loadVertexShader(filepath.toStdString()))
     {
-        ui->actionCargarVertex->setChecked(true);
+        ui->actionLoadVertex->setChecked(true);
         ui->statusbar->showMessage("Vertex shader loaded.");
     }
     else
     {
-        ui->actionCargarVertex->setChecked(false);
+        ui->actionLoadVertex->setChecked(false);
         ui->statusbar->showMessage("Failed to load vertex shader.");
     }
 
@@ -67,12 +67,12 @@ void ShaderViewer::loadFragmentClicked()
 
     if (m_model.loadFragmentShader(filepath.toStdString()))
     {
-        ui->actionCargarVertex->setChecked(true);
+        ui->actionLoadVertex->setChecked(true);
         ui->statusbar->showMessage("Fragment shader loaded.");
     }
     else
     {
-        ui->actionCargarFragment->setChecked(false);
+        ui->actionLoadFragment->setChecked(false);
         ui->statusbar->showMessage("Failed to load fragment shader.");
     }
 
