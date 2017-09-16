@@ -73,27 +73,27 @@ void OGLWidget::initializeGL()
     m_vao.create();
     QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
 
-    // Setup our vertex buffer object.
-    m_vbo.create();
-    m_vbo.bind();
-
-//     FIXME Parece que aquí se ponen los vértices de mi polígono
-    m_data.append(QVector<GLfloat>
-    { -1, 0, 0,
-        0,  0, 0,
-        1, -1, 0 });
-//     FIXME Esto no debería estar en initializeGL, sino que en paintGL
-//     for (vector<float> point : m_model.getCoordinates())
-//     {
-//         m_data.append(static_cast<float>(point.at(0)) / 100);
-//         m_data.append(static_cast<float>(point.at(1)) / 100);
-//         m_data.append(static_cast<float>(point.at(2)) / 100);
-//     }
-
-    m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat));
-
-    // Store the vertex attribute bindings for the program.
-    setupVertexAttribs();
+//     // Setup our vertex buffer object.
+//     m_vbo.create();
+//     m_vbo.bind();
+//
+// //     FIXME Parece que aquí se ponen los vértices de mi polígono
+//     m_data.append(QVector<GLfloat>
+//     { -1, 0, 0,
+//         0,  0, 0,
+//         1, -1, 0 });
+// //     FIXME Esto no debería estar en initializeGL, sino que en paintGL
+// //     for (vector<float> point : m_model.getCoordinates())
+// //     {
+// //         m_data.append(static_cast<float>(point.at(0)) / 100);
+// //         m_data.append(static_cast<float>(point.at(1)) / 100);
+// //         m_data.append(static_cast<float>(point.at(2)) / 100);
+// //     }
+//
+//     m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat));
+//
+//     // Store the vertex attribute bindings for the program.
+//     setupVertexAttribs();
 
     // Our camera never changes in this example.
     m_camera.setToIdentity();
@@ -103,7 +103,6 @@ void OGLWidget::initializeGL()
     m_program->setUniformValue(m_lightPosLoc, QVector3D(0, 0, 70));
 
     m_program->release();
-    std::cout << "Test" << std::endl;
 }
 
 void OGLWidget::paintGL()
@@ -126,6 +125,33 @@ void OGLWidget::paintGL()
     m_program->setUniformValue(m_mvMatrixLoc, m_camera * m_world);
     QMatrix3x3 normalMatrix = m_world.normalMatrix();
     m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
+
+
+    // Setup our vertex buffer object.
+    m_vbo.create();
+    m_vbo.bind();
+
+//     FIXME Parece que aquí se ponen los vértices de mi polígono
+    m_data.append(QVector<GLfloat>
+    { -1, -1, 0,
+        0,  1, 0,
+        1, -1, 0 });
+
+//     for (vector<float> point : m_model.getCoordinates())
+//     {
+//         m_data.append(static_cast<float>(point.at(0)) / 100);
+//         m_data.append(static_cast<float>(point.at(1)) / 100);
+//         m_data.append(static_cast<float>(point.at(2)) / 100);
+//
+//         std::cout << static_cast<float>(point.at(0)) / 100 << std::endl;
+//     }
+
+    m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat));
+
+    // Store the vertex attribute bindings for the program.
+    setupVertexAttribs();
+
+
 
     glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3);
 
