@@ -78,10 +78,10 @@ void OGLWidget::initializeGL()
     m_vbo.bind();
 
 //     FIXME Parece que aquí se ponen los vértices de mi polígono
-//     m_data.append(QVector<GLfloat>
-//     { -1, 0, 0,
-//         0,  0, 0,
-//         1, -1, 0 });
+    m_data.append(QVector<GLfloat>
+    { -1, 0, 0,
+        0,  0, 0,
+        1, -1, 0 });
 //     FIXME Esto no debería estar en initializeGL, sino que en paintGL
 //     for (vector<float> point : m_model.getCoordinates())
 //     {
@@ -103,6 +103,7 @@ void OGLWidget::initializeGL()
     m_program->setUniformValue(m_lightPosLoc, QVector3D(0, 0, 70));
 
     m_program->release();
+    std::cout << "Test" << std::endl;
 }
 
 void OGLWidget::paintGL()
@@ -112,9 +113,12 @@ void OGLWidget::paintGL()
     glEnable(GL_CULL_FACE);
 
     m_world.setToIdentity();
-//     m_world.rotate(180.0f - (m_xRot / 16.0f), 1, 0, 0);
-//     m_world.rotate(m_yRot / 16.0f, 0, 1, 0);
-//     m_world.rotate(m_zRot / 16.0f, 0, 0, 1);
+    int m_xRot = 0;
+    int m_yRot = 0;
+    int m_zRot = 0;
+    m_world.rotate(180.0f - (m_xRot / 16.0f), 1, 0, 0);
+    m_world.rotate(m_yRot / 16.0f, 0, 1, 0);
+    m_world.rotate(m_zRot / 16.0f, 0, 0, 1);
 
     QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
     m_program->bind();
