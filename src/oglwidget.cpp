@@ -42,9 +42,11 @@ void OGLWidget::setupVertexAttribs()
 void OGLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
+    generateGLProgram();
+}
 
-    // FIXME Hacer que se cargue desde QFileDialog
-    // FIXME Cambiar código del "m_program" a una funcion aparte, para poder volver a cargarla
+void OGLWidget::generateGLProgram()
+{
     m_program = new QOpenGLShaderProgram;
     m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../data/vertex.glsl");
     m_program->addShaderFromSourceFile(QOpenGLShader::Fragment,  "../data/fragment.glsl");

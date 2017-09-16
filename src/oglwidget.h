@@ -39,6 +39,7 @@ private:
     Model m_model;
 
     void setupVertexAttribs();
+    void generateGLProgram();
 
     QOpenGLVertexArrayObject m_vao;
     QOpenGLBuffer m_vbo;
