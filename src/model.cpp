@@ -13,12 +13,12 @@ Model::~Model()
 
 vector<vector<float>> Model::getCoordinates()
 {
-    return m_coordinates;
+    return m_vertices;
 }
 
 bool Model::loadGeometry(string filepath)
 {
-    m_geometryLoaded = m_georeader.loadFile(m_coordinates, filepath);
+    m_geometryLoaded = m_georeader.loadFile(m_vertices, filepath);
 
     return m_geometryLoaded;
 }

@@ -1,5 +1,5 @@
 #include "geometryreader.h"
-
+#include <iostream>
 GeometryReader::GeometryReader()
 {
 }
@@ -65,6 +65,11 @@ bool GeometryReader::loadFile(vector<vector<float> > &coordinates, string filepa
 
 bool GeometryReader::loadOBJ(vector<vector<float> >& vertices, vector<vector<float> >& normals, string filepath)
 {
+    if (filepath == "")
+    {
+        return false;
+    }
+
     ifstream myFile(filepath);
     vector<string> lines;
     string line;
@@ -73,6 +78,10 @@ bool GeometryReader::loadOBJ(vector<vector<float> >& vertices, vector<vector<flo
     vector<string> parsedNormals;
     vector<string> parsedFaces;
 
+    vector<vector<float>> vertexIndexes;
+    vector<vector<float>> normalIndexes;
+
+    // File parsing
     if (myFile.is_open())
     {
         while (getline(myFile, line))
@@ -81,19 +90,75 @@ bool GeometryReader::loadOBJ(vector<vector<float> >& vertices, vector<vector<flo
             {
                 if (line.at(1) == ' ')
                 {
-                    parsedVertices.push_back(line);
+                    parsedVertices.push_back(line.substr(2));
                 }
                 else if (line.at(1) == 'n')
                 {
-                    parsedNormals.push_back(line);
+                    parsedNormals.push_back(line.substr(3));
                 }
             }
             else if (line.at(0) == 'f')
             {
-                parsedFaces.push_back(line);
+                parsedFaces.push_back(line.substr(2));
             }
         }
     }
 
-    return false;
+    // Processing parsed data (Vertices)
+    for (unsigned int i = 0; i < parsedVertices.size(); i++)
+    {
+        QString line(parsedVertices.at(i).c_str());
+        QStringList list = line.split(' ');
+        for (QString coord : list)
+        {
+            vector<float> v({list.at(0).toFloat(), list.at(1).toFloat(), list.at(2).toFloat()});
+            vertexIndexes.push_back(v);
+        }
+    }
+
+    // Processing parsed data (Normals)
+    for (unsigned int i = 0; i < parsedNormals.size(); i++)
+    {
+        QString line(parsedNormals.at(i).c_str());
+        QStringList list = line.split(' ');
+        for (QString coord : line)
+        {
+            vector<float> n({list.at(0).toFloat(), list.at(1).toFloat(), list.at(2).toFloat()});
+            normalIndexes.push_back(n);
+        }
+    }
+
+    // Processing parsed data (Faces)
+    for (unsigned int i = 0; i < parsedFaces.size(); i++)
+    {
+        QString line(parsedFaces.at(i).c_str());
+        QStringList xyz = line.split(' ');
+        QString first = xyz.at(0);                          // First vertex of the triangle
+        QString second = xyz.at(1);                         // Second vertex of the triangle
+        QString third = xyz.at(2);                          // Third vertex of the triangle
+
+        int firstVert  = first.split('/').at(0).toInt();
+        int secondVert = second.split('/').at(0).toInt();
+        int thirdVert  = third.split('/').at(0).toInt();
+
+        int firstNorm  = first.split('/').at(2).toInt();
+        int secondNorm = second.split('/').at(2).toInt();
+        int thirdNorm  = third.split('/').at(2).toInt();
+
+        vector<float> triangleVerts;
+        vector<float> triangleNorms;
+
+        triangleVerts.push_back(firstVert);
+        triangleVerts.push_back(secondVert);
+        triangleVerts.push_back(thirdVert);
+
+        triangleNorms.push_back(firstNorm);
+        triangleNorms.push_back(secondNorm);
+        triangleNorms.push_back(thirdNorm);
+
+        vertices.push_back(triangleVerts);
+        normals.push_back(triangleNorms);
+    }
+
+    return true;
 }

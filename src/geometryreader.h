@@ -19,6 +19,8 @@
 #ifndef _GEOMETRYREADER_H_
 #define _GEOMETRYREADER_H_
 
+#include <QStringRef>
+#include <QStringList>
 #include <vector>
 #include <fstream>
 #include <sstream>
