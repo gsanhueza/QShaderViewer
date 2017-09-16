@@ -1,3 +1,4 @@
+#include <iostream>
 #include "oglwidget.h"
 
 OGLWidget::OGLWidget(QWidget* parent)
@@ -5,8 +6,7 @@ OGLWidget::OGLWidget(QWidget* parent)
       m_program(0),
       m_xRot(0),
       m_yRot(0),
-      m_zRot(0),
-      m_zCamPos(-1)
+      m_zRot(0)
 {
 }
 
@@ -65,9 +65,9 @@ void OGLWidget::generateGLProgram()
 
     // Here you can write fixed geometries, if you don't need to load them more than once.
 
-    // Our camera never changes in this example.
+    // Our camera has a initial position.
     m_camera.setToIdentity();
-    m_camera.translate(0, 0, m_zCamPos);
+    m_camera.translate(0, 0, -1);
 
     // Light position is fixed.
     m_program->setUniformValue(m_lightPosLoc, QVector3D(0, 0, 70));
@@ -134,17 +134,21 @@ void OGLWidget::receiveModel(const Model &m)
     update();
 }
 
-void OGLWidget::keyPressEvent(QKeyEvent *event)
+void OGLWidget::keyPressed(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Plus)
+    // Plus and Minus keys move the camera
+    switch(event->key())
     {
-        m_zCamPos -= 0.1;
+        case Qt::Key_Plus:
+            m_camera.translate(0, 0, 0.1);
+            break;
+        case Qt::Key_Minus:
+            m_camera.translate(0, 0, -0.1);
+            break;
+        default:
+            break;
     }
-    else if (event->key() == Qt::Key_Minus)
-    {
-        m_zCamPos += 0.1;
-    }
-    Q_UNUSED(event);
+    update();
 }
 
 void OGLWidget::mousePressEvent(QMouseEvent *event)

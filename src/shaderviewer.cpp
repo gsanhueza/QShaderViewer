@@ -105,3 +105,7 @@ void ShaderViewer::loadAboutClicked()
     m_about->show();
 }
 
+void ShaderViewer::keyPressEvent(QKeyEvent *event)
+{
+    emit keyPressed(event);
+}
