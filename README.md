@@ -1,3 +1,6 @@
+# Author
+Gabriel Sanhueza S.
+
 # Instructions
 
 You need Qt5 and QMake
