@@ -21,7 +21,8 @@ static const char *vertexShaderSource =
 "void main() {\n"
 "   vert = vertex.xyz;\n"
 "   vertNormal = normalMatrix * normal;\n"
-"   gl_Position = projMatrix * mvMatrix * vertex;\n"
+// "   gl_Position = projMatrix * mvMatrix * vertex;\n"
+"   gl_Position = vertex;\n"
 "}\n";
 
 static const char *fragmentShaderSource =
@@ -75,10 +76,19 @@ void OGLWidget::initializeGL()
     // Setup our vertex buffer object.
     m_vbo.create();
     m_vbo.bind();
-    // FIXME Parece que aquí se ponen los vértices de mi polígono
-    m_data.append(QVector<GLfloat>{0.5, 0.0, -0.05});
-    m_data.append(QVector<GLfloat>{0.0, 0.5, 0.0});
-    m_data.append(QVector<GLfloat>{-0.5, 0.0, 0.0});
+
+//     FIXME Parece que aquí se ponen los vértices de mi polígono
+//     m_data.append(QVector<GLfloat>
+//     { -1, 0, 0,
+//         0,  0, 0,
+//         1, -1, 0 });
+//     FIXME Esto no debería estar en initializeGL, sino que en paintGL
+//     for (vector<float> point : m_model.getCoordinates())
+//     {
+//         m_data.append(static_cast<float>(point.at(0)) / 100);
+//         m_data.append(static_cast<float>(point.at(1)) / 100);
+//         m_data.append(static_cast<float>(point.at(2)) / 100);
+//     }
 
     m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat));
 
