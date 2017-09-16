@@ -1,6 +1,6 @@
 #include "oglwidget.h"
 
-static const bool DEBUG = true;
+static const bool DEBUG = false;
 
 void debug(string s)
 {
@@ -21,10 +21,15 @@ OGLWidget::OGLWidget(QWidget* parent)
 
 OGLWidget::~OGLWidget()
 {
+    cleanup();
+}
+
+void OGLWidget::cleanup()
+{
     makeCurrent();
     m_vbo.destroy();
     delete m_program;
-    m_program = 0;
+    m_program = nullptr;
     doneCurrent();
 }
 
@@ -103,6 +108,7 @@ void OGLWidget::paintGL()
     m_vbo.create();
     m_vbo.bind();
 
+    // Clear old geometry data from vector.
     m_data.clear();
 
     // Load geometry from local file
@@ -131,20 +137,23 @@ void OGLWidget::resizeGL(int w, int h)
 
 void OGLWidget::receiveModel(const Model &m)
 {
-    debug("OGLWIDGET: Recibiendo señal");
+    debug("OGLWidget::receiveModel");
     m_model = m;
+    // TODO Recargar shaders
+    m_program = nullptr;
+    generateGLProgram();
     update();
 }
 
 void OGLWidget::mousePressEvent(QMouseEvent *event)
 {
-    debug("OGLWIDGET: Mouse presionado");
+    debug("OGLWidget::mousePressEvent");
     m_lastPos = event->pos();
 }
 
 void OGLWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    debug("OGLWIDGET: Mouse moviéndose");
+    debug("OGLWidget::mouseMoveEvent");
     int dx = event->x() - m_lastPos.x();
     int dy = event->y() - m_lastPos.y();
 
