@@ -21,6 +21,11 @@ OGLWidget::OGLWidget(QWidget* parent)
 
 OGLWidget::~OGLWidget()
 {
+    makeCurrent();
+    m_vbo.destroy();
+    delete m_program;
+    m_program = 0;
+    doneCurrent();
 }
 
 static const char *vertexShaderSource =
@@ -35,18 +40,6 @@ static const char *vertexShaderSource =
 "   vert = vertex.xyz;\n"
 "   vertNormal = normalMatrix * normal;\n"
 "   gl_Position = projMatrix * mvMatrix * vertex;\n"
-"}\n";
-
-static const char *fragmentShaderSource =
-"varying highp vec3 vert;\n"
-"varying highp vec3 vertNormal;\n"
-"uniform highp vec3 lightPos;\n"
-"void main() {\n"
-"   highp vec3 L = normalize(lightPos - vert);\n"
-"   highp float NL = max(dot(normalize(vertNormal), L), 0.0);\n"
-"   highp vec3 color = vec3(0.39, 1.0, 0.0);\n"
-"   highp vec3 col = clamp(color * 0.2 + color * 0.8 * NL, 0.0, 1.0);\n"
-"   gl_FragColor = vec4(col, 1.0);\n"
 "}\n";
 
 void OGLWidget::setupVertexAttribs()
@@ -64,9 +57,11 @@ void OGLWidget::initializeGL()
 {
     initializeOpenGLFunctions();
 
+    //  FIXME Hacer que se cargue desde QFileDialog
     m_program = new QOpenGLShaderProgram;
+//     m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, "../data/vertex.glsl");
     m_program->addShaderFromSourceCode(QOpenGLShader::Vertex, vertexShaderSource);
-    m_program->addShaderFromSourceCode(QOpenGLShader::Fragment, fragmentShaderSource);
+    m_program->addShaderFromSourceFile(QOpenGLShader::Fragment,  "../data/fragment.glsl");
     m_program->bindAttributeLocation("vertex", 0);
     m_program->bindAttributeLocation("normal", 1);
     m_program->link();
