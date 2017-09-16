@@ -53,8 +53,6 @@ bool GeometryReader::loadFile(vector<vector<float> > &coordinates, string filepa
             tmp.push_back(yCoord);
             tmp.push_back(zCoord);
 
-            cout << "Se leyeron las coordenadas: (" << xCoord << ", " << yCoord << ", " << zCoord << ")" << endl;
-
             coordinates.push_back(tmp);
         }
     }

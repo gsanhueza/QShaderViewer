@@ -1,15 +1,5 @@
 #include "model.h"
 
-static const bool DEBUG = true;
-
-void mdldebug(string s)
-{
-    if (DEBUG)
-    {
-        std::cout << s << std::endl;
-    }
-}
-
 Model::Model() :
     m_geometryLoaded(false),
     m_vertexLoaded(false),
@@ -28,7 +18,6 @@ vector<vector<float>> Model::getCoordinates()
 
 bool Model::loadGeometry(string filepath)
 {
-    mdldebug("MODEL: Cargando geometría...");
     m_geometryLoaded = m_georeader.loadFile(m_coordinates, filepath);
 
     return m_geometryLoaded;
@@ -36,8 +25,6 @@ bool Model::loadGeometry(string filepath)
 
 bool Model::loadVertexShader(string filepath)
 {
-    mdldebug("MODEL: Cargando vertex...");
-
     m_vertexPath = filepath;
     m_vertexLoaded = (filepath != "");
 
@@ -46,7 +33,6 @@ bool Model::loadVertexShader(string filepath)
 
 bool Model::loadFragmentShader(string filepath)
 {
-    mdldebug("MODEL: Cargando fragment...");
     m_fragmentPath = filepath;
     m_fragmentLoaded = (filepath != "");
 
