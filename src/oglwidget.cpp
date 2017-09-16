@@ -1,8 +1,21 @@
 #include "oglwidget.h"
 
+static const bool DEBUG = true;
+
+void debug(string s)
+{
+    if (DEBUG)
+    {
+        std::cout << s << std::endl;
+    }
+}
+
 OGLWidget::OGLWidget(QWidget* parent)
     : QOpenGLWidget(parent),
-      m_program(0)
+      m_program(0),
+      m_xRot(0),
+      m_yRot(0),
+      m_zRot(0)
 {
 }
 
@@ -21,8 +34,7 @@ static const char *vertexShaderSource =
 "void main() {\n"
 "   vert = vertex.xyz;\n"
 "   vertNormal = normalMatrix * normal;\n"
-// "   gl_Position = projMatrix * mvMatrix * vertex;\n"
-"   gl_Position = vertex;\n"
+"   gl_Position = projMatrix * mvMatrix * vertex;\n"
 "}\n";
 
 static const char *fragmentShaderSource =
@@ -34,8 +46,7 @@ static const char *fragmentShaderSource =
 "   highp float NL = max(dot(normalize(vertNormal), L), 0.0);\n"
 "   highp vec3 color = vec3(0.39, 1.0, 0.0);\n"
 "   highp vec3 col = clamp(color * 0.2 + color * 0.8 * NL, 0.0, 1.0);\n"
-"   gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n"
-// "   gl_FragColor = vec4(col, 1.0);\n"
+"   gl_FragColor = vec4(col, 1.0);\n"
 "}\n";
 
 void OGLWidget::setupVertexAttribs()
@@ -94,9 +105,6 @@ void OGLWidget::paintGL()
     m_world.setToIdentity();
 
     // Allow rotation of the world
-    int m_xRot = 0;
-    int m_yRot = 0;
-    int m_zRot = 0;
     m_world.rotate(180.0f - (m_xRot / 16.0f), 1, 0, 0);
     m_world.rotate(m_yRot / 16.0f, 0, 1, 0);
     m_world.rotate(m_zRot / 16.0f, 0, 0, 1);
@@ -140,7 +148,64 @@ void OGLWidget::resizeGL(int w, int h)
 
 void OGLWidget::receiveModel(const Model &m)
 {
-    std::cout << "OGLWIDGET: Recibiendo señal" << std::endl;
+    debug("OGLWIDGET: Recibiendo señal");
     m_model = m;
     update();
+}
+
+void OGLWidget::mousePressEvent(QMouseEvent *event)
+{
+    debug("OGLWIDGET: Mouse presionado");
+    m_lastPos = event->pos();
+}
+
+void OGLWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    debug("OGLWIDGET: Mouse moviéndose");
+    int dx = event->x() - m_lastPos.x();
+    int dy = event->y() - m_lastPos.y();
+
+    if (event->buttons() & Qt::LeftButton) {
+        setXRotation(m_xRot + 8 * dy);
+        setYRotation(m_yRot + 8 * dx);
+    } else if (event->buttons() & Qt::RightButton) {
+        setXRotation(m_xRot + 8 * dy);
+        setZRotation(m_zRot + 8 * dx);
+    }
+    m_lastPos = event->pos();
+}
+
+static void qNormalizeAngle(int &angle)
+{
+    while (angle < 0)
+        angle += 360 * 16;
+    while (angle > 360 * 16)
+        angle -= 360 * 16;
+}
+
+void OGLWidget::setXRotation(int angle)
+{
+    qNormalizeAngle(angle);
+    if (angle != m_xRot) {
+        m_xRot = angle;
+        update();
+    }
+}
+
+void OGLWidget::setYRotation(int angle)
+{
+    qNormalizeAngle(angle);
+    if (angle != m_yRot) {
+        m_yRot = angle;
+        update();
+    }
+}
+
+void OGLWidget::setZRotation(int angle)
+{
+    qNormalizeAngle(angle);
+    if (angle != m_zRot) {
+        m_zRot = angle;
+        update();
+    }
 }

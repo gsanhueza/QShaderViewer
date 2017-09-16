@@ -8,6 +8,7 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLWidget>
 #include <QMatrix4x4>
+#include <QMouseEvent>
 #include <GL/glu.h>
 #include <GL/gl.h>
 
@@ -23,11 +24,16 @@ public:
 
 public slots:
     void receiveModel(const Model &m);
+    void setXRotation(int angle);
+    void setYRotation(int angle);
+    void setZRotation(int angle);
 
 protected:
-    void initializeGL();
-    void resizeGL(int w, int h);
-    void paintGL();
+    void initializeGL() override;
+    void resizeGL(int w, int h) override;
+    void paintGL() override;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
     Model m_model;
@@ -44,6 +50,10 @@ private:
     QMatrix4x4 m_proj;
     QMatrix4x4 m_camera;
     QMatrix4x4 m_world;
+    QPoint m_lastPos;
+    int m_xRot;
+    int m_yRot;
+    int m_zRot;
 
     QVector<GLfloat> m_data;
 };
