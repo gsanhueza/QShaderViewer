@@ -62,3 +62,38 @@ bool GeometryReader::loadFile(vector<vector<float> > &coordinates, string filepa
     }
     return true;
 }
+
+bool GeometryReader::loadOBJ(vector<vector<float> >& vertices, vector<vector<float> >& normals, string filepath)
+{
+    ifstream myFile(filepath);
+    vector<string> lines;
+    string line;
+
+    vector<string> parsedVertices;
+    vector<string> parsedNormals;
+    vector<string> parsedFaces;
+
+    if (myFile.is_open())
+    {
+        while (getline(myFile, line))
+        {
+            if (line.at(0) == 'v')
+            {
+                if (line.at(1) == ' ')
+                {
+                    parsedVertices.push_back(line);
+                }
+                else if (line.at(1) == 'n')
+                {
+                    parsedNormals.push_back(line);
+                }
+            }
+            else if (line.at(0) == 'f')
+            {
+                parsedFaces.push_back(line);
+            }
+        }
+    }
+
+    return false;
+}

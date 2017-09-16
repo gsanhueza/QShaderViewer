@@ -32,6 +32,7 @@ public:
     ~GeometryReader();
 
     bool loadFile(vector<vector<float>> &coordinates, string filepath);
+    bool loadOBJ(vector<vector<float>> &vertices, vector<vector<float>> &normals, string filepath);
 
 private:
     string data;
