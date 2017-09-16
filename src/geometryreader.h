@@ -1,11 +1,9 @@
 #ifndef _GEOMETRYREADER_H_
 #define _GEOMETRYREADER_H_
 
-#include <iostream>
 #include <vector>
 #include <fstream>
 #include <sstream>
-#include <QStringRef>
 
 using namespace std;
 

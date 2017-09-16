@@ -1,15 +1,5 @@
 #include "oglwidget.h"
 
-static const bool DEBUG = false;
-
-void debug(string s)
-{
-    if (DEBUG)
-    {
-        std::cout << s << std::endl;
-    }
-}
-
 OGLWidget::OGLWidget(QWidget* parent)
     : QOpenGLWidget(parent),
       m_program(0),
@@ -137,9 +127,7 @@ void OGLWidget::resizeGL(int w, int h)
 
 void OGLWidget::receiveModel(const Model &m)
 {
-    debug("OGLWidget::receiveModel");
     m_model = m;
-    // TODO Recargar shaders
     m_program = nullptr;
     generateGLProgram();
     update();
@@ -147,13 +135,11 @@ void OGLWidget::receiveModel(const Model &m)
 
 void OGLWidget::mousePressEvent(QMouseEvent *event)
 {
-    debug("OGLWidget::mousePressEvent");
     m_lastPos = event->pos();
 }
 
 void OGLWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    debug("OGLWidget::mouseMoveEvent");
     int dx = event->x() - m_lastPos.x();
     int dy = event->y() - m_lastPos.y();
 
