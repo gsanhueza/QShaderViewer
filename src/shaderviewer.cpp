@@ -4,6 +4,8 @@
 ShaderViewer::ShaderViewer(Model model, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ShaderViewer),
+    m_tutorial(new Tutorial),
+    m_about(new About),
     m_model(model)
 {
     ui->setupUi(this);
@@ -12,6 +14,8 @@ ShaderViewer::ShaderViewer(Model model, QWidget *parent) :
 
 ShaderViewer::~ShaderViewer()
 {
+    delete m_tutorial;
+    delete m_about;
     delete ui;
 }
 
@@ -86,19 +90,11 @@ void ShaderViewer::loadFragmentClicked()
 
 void ShaderViewer::loadTutorialClicked()
 {
-    // TODO Mostrar ventana nueva para el tutorial.
-    QWidget(w);
-    ui->statusbar->showMessage("Tutorial clicked.");
-
-    w.show();
+    m_tutorial->show();
 }
 
 void ShaderViewer::loadAboutClicked()
 {
-    // TODO Mostrar ventana nueva para el acerca de.
-    QWidget(w);
-    ui->statusbar->showMessage("About clicked.");
-
-    w.show();
+    m_about->show();
 }
 

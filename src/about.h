@@ -16,26 +16,26 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _GEOMETRYREADER_H_
-#define _GEOMETRYREADER_H_
+#ifndef _ABOUT_H_
+#define _ABOUT_H_
 
-#include <vector>
-#include <fstream>
-#include <sstream>
+#include <QWidget>
 
-using namespace std;
-
-class GeometryReader
+namespace Ui
 {
-public:
-    GeometryReader();
-    ~GeometryReader();
+    class About;
+}
 
-    bool loadFile(vector<vector<float>> &coordinates, string filepath);
+class About : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit About(QWidget *parent = nullptr);
+    ~About();
 
 private:
-    string data;
-
+    Ui::About* ui;
 };
 
-#endif
+#endif // _ABOUT_H_
