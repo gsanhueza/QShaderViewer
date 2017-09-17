@@ -1,16 +1,16 @@
-attribute vec3 position;
-attribute vec4 color;
+attribute vec3 vertex;
 attribute vec3 normal;
 
-varying vec4 myColor;
-varying vec3 myNormal;
-varying vec3 myPosition;
+varying vec3 vert;
+varying vec3 vertNormal;
 
 uniform vec3 lightPos;
+uniform mat4 projMatrix;
+uniform mat4 mvMatrix;
+uniform vec3 normalMatrix;
 
 void main(){
-    myColor = color;
-    myNormal = normal;
-    myPosition = position;
-    gl_Position = gl_ModelViewProjectionMatrix * vec4(myPosition, 1.0);
+    vert = vertex;
+    vertNormal = normalMatrix * normal;
+    gl_Position = projMatrix * mvMatrix * vec4(vertex, 1.0);
 }
