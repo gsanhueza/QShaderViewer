@@ -67,9 +67,9 @@ public:
     /**
     * @brief Gets coordinates of the triangles in the loaded geometry file.
     *
-    * @return std::vector< std::vector< float > > A vector of coordinates, like (0.0, 1.0, 0.5).
+    * @return std::vector<  float > A vector of coordinates, like (0.0, 1.0, 0.5).
     */
-    vector<vector<float>> getCoordinates();
+    vector<float> getCoordinates();
 
     /**
     * @brief Detects if geometry file could be loaded.
@@ -115,8 +115,8 @@ public:
 
 private:
     GeometryReader m_georeader;
-    vector<vector<float>> m_vertices;
-    vector<vector<float>> m_normals;
+    vector<float> m_vertices;
+    vector<float> m_normals;
 
     bool m_geometryLoaded;
     bool m_vertexLoaded;

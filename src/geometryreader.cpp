@@ -8,7 +8,7 @@ GeometryReader::~GeometryReader()
 {
 }
 
-bool GeometryReader::loadFile(vector<vector<float> > &coordinates, string filepath)
+bool GeometryReader::loadFile(vector<float> &coordinates, string filepath)
 {
     if (filepath == "")
     {
@@ -34,26 +34,11 @@ bool GeometryReader::loadFile(vector<vector<float> > &coordinates, string filepa
 
         for (unsigned int i = 0; i < lines.size(); ++i)
         {
-            string buf;                                         // Buffer
-            stringstream ss(lines.at(i));                       // String dentro de un stream
-
-            vector<int> tokens;                                 // Vector de coordenadas (tamaño 3)
-
-            while (ss >> buf)                                   // Separamos por espacios
-            {
-                tokens.push_back(stoi(buf));
-            }
-
-            float xCoord(tokens.at(0));
-            float yCoord(tokens.at(1));
-            float zCoord(tokens.at(2));
-
-            vector<float> tmp;
-            tmp.push_back(xCoord);
-            tmp.push_back(yCoord);
-            tmp.push_back(zCoord);
-
-            coordinates.push_back(tmp);
+            QString line = lines.at(i).c_str();
+            QStringList list = line.split(' ');
+            coordinates.push_back(list.at(0).toFloat());    // X
+            coordinates.push_back(list.at(1).toFloat());    // Y
+            coordinates.push_back(list.at(2).toFloat());    // Z
         }
     }
     catch(exception e)
@@ -63,7 +48,7 @@ bool GeometryReader::loadFile(vector<vector<float> > &coordinates, string filepa
     return true;
 }
 
-bool GeometryReader::loadOBJ(vector<vector<float> >& vertices, vector<vector<float> >& normals, string filepath)
+bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, string filepath)
 {
     if (filepath == "")
     {
@@ -109,11 +94,8 @@ bool GeometryReader::loadOBJ(vector<vector<float> >& vertices, vector<vector<flo
     {
         QString line(parsedVertices.at(i).c_str());
         QStringList list = line.split(' ');
-        for (QString coord : list)
-        {
-            vector<float> v({list.at(0).toFloat(), list.at(1).toFloat(), list.at(2).toFloat()});
-            vertexIndexes.push_back(v);
-        }
+        vector<float> v({list.at(0).toFloat(), list.at(1).toFloat(), list.at(2).toFloat()});
+        vertexIndexes.push_back(v);
     }
 
     // Processing parsed data (Normals)
@@ -121,11 +103,8 @@ bool GeometryReader::loadOBJ(vector<vector<float> >& vertices, vector<vector<flo
     {
         QString line(parsedNormals.at(i).c_str());
         QStringList list = line.split(' ');
-        for (QString coord : line)
-        {
-            vector<float> n({list.at(0).toFloat(), list.at(1).toFloat(), list.at(2).toFloat()});
-            normalIndexes.push_back(n);
-        }
+        vector<float> n({list.at(0).toFloat(), list.at(1).toFloat(), list.at(2).toFloat()});
+        normalIndexes.push_back(n);
     }
 
     // Processing parsed data (Faces)
@@ -145,19 +124,37 @@ bool GeometryReader::loadOBJ(vector<vector<float> >& vertices, vector<vector<flo
         int secondNorm = second.split('/').at(2).toInt();
         int thirdNorm  = third.split('/').at(2).toInt();
 
-        vector<float> triangleVerts;
-        vector<float> triangleNorms;
+        // Vertices
+        // X
+        vertices.push_back(vertexIndexes.at(firstVert - 1).at(0));
+        // Y
+        vertices.push_back(vertexIndexes.at(firstVert - 1).at(1));
+        // Z
+        vertices.push_back(vertexIndexes.at(firstVert - 1).at(2));
 
-        triangleVerts.push_back(firstVert);
-        triangleVerts.push_back(secondVert);
-        triangleVerts.push_back(thirdVert);
+        vertices.push_back(vertexIndexes.at(secondVert - 1).at(0));
+        vertices.push_back(vertexIndexes.at(secondVert - 1).at(1));
+        vertices.push_back(vertexIndexes.at(secondVert - 1).at(2));
 
-        triangleNorms.push_back(firstNorm);
-        triangleNorms.push_back(secondNorm);
-        triangleNorms.push_back(thirdNorm);
+        vertices.push_back(vertexIndexes.at(thirdVert - 1).at(0));
+        vertices.push_back(vertexIndexes.at(thirdVert - 1).at(1));
+        vertices.push_back(vertexIndexes.at(thirdVert - 1).at(2));
 
-        vertices.push_back(triangleVerts);
-        normals.push_back(triangleNorms);
+        // Normals
+        // X
+        normals.push_back(vertexIndexes.at(firstNorm - 1).at(0));
+        // Y
+        normals.push_back(vertexIndexes.at(firstNorm - 1).at(1));
+        // Z
+        normals.push_back(vertexIndexes.at(firstNorm - 1).at(2));
+
+        normals.push_back(vertexIndexes.at(secondNorm - 1).at(0));
+        normals.push_back(vertexIndexes.at(secondNorm - 1).at(1));
+        normals.push_back(vertexIndexes.at(secondNorm - 1).at(2));
+
+        normals.push_back(vertexIndexes.at(thirdNorm - 1).at(0));
+        normals.push_back(vertexIndexes.at(thirdNorm - 1).at(1));
+        normals.push_back(vertexIndexes.at(thirdNorm - 1).at(2));
     }
 
     return true;
