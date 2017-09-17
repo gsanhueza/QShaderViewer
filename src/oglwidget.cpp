@@ -32,9 +32,9 @@ void OGLWidget::setupVertexAttribs()
     m_vbo.bind();
     QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
     f->glEnableVertexAttribArray(0);
-    f->glEnableVertexAttribArray(1);
-    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0); // FIXME Verificar qué significa 3 o 6
-    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<void *>(3 * sizeof(GLfloat)));
+//     f->glEnableVertexAttribArray(1);
+    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0); // FIXME Verificar qué significa 3 o 6
+//     f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<void *>(3 * sizeof(GLfloat)));
     m_vbo.release();
 }
 
@@ -50,7 +50,7 @@ void OGLWidget::generateGLProgram()
     m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, QString(m_model.getVertexPath().c_str()));
     m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, QString(m_model.getFragmentPath().c_str()));
     m_program->bindAttributeLocation("vertex", 0);
-    m_program->bindAttributeLocation("normal", 1);
+//     m_program->bindAttributeLocation("normal", 1);
     m_program->link();
 
     m_program->bind();
@@ -84,9 +84,9 @@ void OGLWidget::paintGL()
     m_world.setToIdentity();
 
     // Allow rotation of the world
-    m_world.rotate(180.0f - (m_xRot / 16.0f), 1, 0, 0);
+    m_world.rotate(m_xRot / 16.0f, 1, 0, 0);
     m_world.rotate(m_yRot / 16.0f, 0, 1, 0);
-    m_world.rotate(m_zRot / 16.0f, 0, 0, 1);
+    m_world.rotate(180.0f - m_zRot / 16.0f, 0, 0, 1);
 
     QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
     m_program->bind();
@@ -110,12 +110,12 @@ void OGLWidget::paintGL()
     }
 
 //     m_vbo.allocate(m_logo.constData(), m_logo.count() * sizeof(GLfloat));
-    m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat)); // FIXME Reemplazar
+    m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat));
 
     // Store the vertex attribute bindings for the program.
     setupVertexAttribs();
 
-    glDrawArrays(GL_TRIANGLES, 0, /*m_data.count() /*/ 3); // FIXME Reemplazar
+    glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3);
 //     glDrawArrays(GL_TRIANGLES, 0, m_logo.vertexCount());
 
     m_program->release();
@@ -172,7 +172,6 @@ void OGLWidget::keyPressed(QKeyEvent *event)
 
 void OGLWidget::mousePressEvent(QMouseEvent *event)
 {
-    std::cout << "mousePressEvent" << std::endl;
     m_lastPos = event->pos();
 }
 

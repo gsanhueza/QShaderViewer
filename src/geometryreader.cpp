@@ -106,8 +106,6 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, st
         vertexIndexes.push_back(v);
     }
 
-    cout << "(8) vertexIndexes tiene " << vertexIndexes.size() << " elementos." << endl;
-
     // Processing parsed data (Normals)
     for (unsigned int i = 0; i < parsedNormals.size(); i++)
     {
@@ -116,8 +114,6 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, st
         vector<float> n({list.at(0).toFloat(), list.at(1).toFloat(), list.at(2).toFloat()});
         normalIndexes.push_back(n);
     }
-
-    cout << "(6) normalIndexes tiene " << normalIndexes.size() << " elementos." << endl;
 
     // Processing parsed data (Faces)
     for (unsigned int i = 0; i < parsedFaces.size(); i++)
@@ -131,10 +127,6 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, st
         int firstVert  = first.split('/').at(0).toInt();
         int secondVert = second.split('/').at(0).toInt();
         int thirdVert  = third.split('/').at(0).toInt();
-
-        cout << "first vertex position index is : " << firstVert << endl;
-        cout << "second vertex position index is : " << secondVert << endl;
-        cout << "third vertex position index is : " << thirdVert << endl;
 
         int firstNorm  = first.split('/').at(2).toInt();
         int secondNorm = second.split('/').at(2).toInt();
@@ -172,9 +164,6 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, st
         normals.push_back(vertexIndexes.at(thirdNorm - 1).at(1));
         normals.push_back(vertexIndexes.at(thirdNorm - 1).at(2));
     }
-
-    cout << "(12) parsedFaces tiene " << parsedFaces.size() << " elementos." << endl;
-    cout << "(36*3) Hay en total " << vertices.size() << " vértices." << endl;
 
     return true;
 }
