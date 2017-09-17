@@ -125,12 +125,10 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, st
         int thirdNorm  = third.split('/').at(2).toInt();
 
         // Vertices
-        // X
-        vertices.push_back(vertexIndexes.at(firstVert - 1).at(0));
-        // Y
-        vertices.push_back(vertexIndexes.at(firstVert - 1).at(1));
-        // Z
-        vertices.push_back(vertexIndexes.at(firstVert - 1).at(2));
+
+        vertices.push_back(vertexIndexes.at(firstVert - 1).at(0)); // X
+        vertices.push_back(vertexIndexes.at(firstVert - 1).at(1)); // Y
+        vertices.push_back(vertexIndexes.at(firstVert - 1).at(2)); // Z
 
         vertices.push_back(vertexIndexes.at(secondVert - 1).at(0));
         vertices.push_back(vertexIndexes.at(secondVert - 1).at(1));
@@ -141,20 +139,17 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, st
         vertices.push_back(vertexIndexes.at(thirdVert - 1).at(2));
 
         // Normals
-        // X
-        normals.push_back(vertexIndexes.at(firstNorm - 1).at(0));
-        // Y
-        normals.push_back(vertexIndexes.at(firstNorm - 1).at(1));
-        // Z
-        normals.push_back(vertexIndexes.at(firstNorm - 1).at(2));
+        vertices.push_back(vertexIndexes.at(firstNorm - 1).at(0)); // X
+        vertices.push_back(vertexIndexes.at(firstNorm - 1).at(1)); // Y
+        vertices.push_back(vertexIndexes.at(firstNorm - 1).at(2)); // Z
 
-        normals.push_back(vertexIndexes.at(secondNorm - 1).at(0));
-        normals.push_back(vertexIndexes.at(secondNorm - 1).at(1));
-        normals.push_back(vertexIndexes.at(secondNorm - 1).at(2));
+        vertices.push_back(vertexIndexes.at(secondNorm - 1).at(0));
+        vertices.push_back(vertexIndexes.at(secondNorm - 1).at(1));
+        vertices.push_back(vertexIndexes.at(secondNorm - 1).at(2));
 
-        normals.push_back(vertexIndexes.at(thirdNorm - 1).at(0));
-        normals.push_back(vertexIndexes.at(thirdNorm - 1).at(1));
-        normals.push_back(vertexIndexes.at(thirdNorm - 1).at(2));
+        vertices.push_back(vertexIndexes.at(thirdNorm - 1).at(0));
+        vertices.push_back(vertexIndexes.at(thirdNorm - 1).at(1));
+        vertices.push_back(vertexIndexes.at(thirdNorm - 1).at(2));
     }
 
     return true;

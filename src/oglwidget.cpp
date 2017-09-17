@@ -32,9 +32,9 @@ void OGLWidget::setupVertexAttribs()
     m_vbo.bind();
     QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
     f->glEnableVertexAttribArray(0);
-//     f->glEnableVertexAttribArray(1);
-    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0); // FIXME Verificar qué significa 3 o 6
-//     f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<void *>(3 * sizeof(GLfloat)));
+    f->glEnableVertexAttribArray(1);
+    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
+    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), reinterpret_cast<void *>(3 * sizeof(GLfloat)));
     m_vbo.release();
 }
 
@@ -50,7 +50,7 @@ void OGLWidget::generateGLProgram()
     m_program->addShaderFromSourceFile(QOpenGLShader::Vertex, QString(m_model.getVertexPath().c_str()));
     m_program->addShaderFromSourceFile(QOpenGLShader::Fragment, QString(m_model.getFragmentPath().c_str()));
     m_program->bindAttributeLocation("vertex", 0);
-//     m_program->bindAttributeLocation("normal", 1);
+    m_program->bindAttributeLocation("normal", 1);
     m_program->link();
 
     m_program->bind();
@@ -109,14 +109,12 @@ void OGLWidget::paintGL()
         m_data.append(point);
     }
 
-//     m_vbo.allocate(m_logo.constData(), m_logo.count() * sizeof(GLfloat));
     m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat));
 
     // Store the vertex attribute bindings for the program.
     setupVertexAttribs();
 
     glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3);
-//     glDrawArrays(GL_TRIANGLES, 0, m_logo.vertexCount());
 
     m_program->release();
 }
