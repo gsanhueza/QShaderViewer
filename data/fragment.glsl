@@ -1,6 +1,7 @@
 varying highp vec3 vert;
 varying highp vec3 vertNormal;
 uniform highp vec3 lightPos;
+
 void main() {
     highp vec3 L = normalize(lightPos - vert);
     highp float NL = max(dot(normalize(vertNormal), L), 0.0);
