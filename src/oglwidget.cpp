@@ -122,7 +122,7 @@ void OGLWidget::paintGL()
         m_data.append(point);
     }
 
-    m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat));
+    m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat)); // FIXME Realmente necesitamos cargar a cada rato?
 
     // Store the vertex attribute bindings for the program.
     setupVertexAttribs();

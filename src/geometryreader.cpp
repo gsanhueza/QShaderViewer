@@ -29,7 +29,7 @@ bool GeometryReader::loadFile(vector<float> &coordinates, string filepath)
             }
         }
 
-        // Limpieza de geometría anterior
+        // Old geometry clean-up
         coordinates.clear();
 
         for (unsigned int i = 0; i < lines.size(); ++i)
@@ -66,8 +66,13 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, st
     vector<vector<float>> vertexIndexes;
     vector<vector<float>> normalIndexes;
 
-    // Limpieza de geometría anterior
+    const unsigned int VERTEX_INDEX = 0;
+//     const unsigned int TEXTURE_INDEX = 1;
+    const unsigned int NORMAL_INDEX = 2;
+
+    // Old geometry clean-up
     vertices.clear();
+    normals.clear();
 
     // File parsing
     if (myFile.is_open())
@@ -114,45 +119,19 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, st
     for (unsigned int i = 0; i < parsedFaces.size(); i++)
     {
         QString line(parsedFaces.at(i).c_str());
-        QStringList xyz = line.split(' ');
-        QString first = xyz.at(0);                          // First vertex of the triangle
-        QString second = xyz.at(1);                         // Second vertex of the triangle
-        QString third = xyz.at(2);                          // Third vertex of the triangle
+        QStringList triangleData = line.split(' ');         // Split by coordinates
 
-        int firstVert  = first.split('/').at(0).toInt();
-        int secondVert = second.split('/').at(0).toInt();
-        int thirdVert  = third.split('/').at(0).toInt();
-
-        int firstNorm  = first.split('/').at(2).toInt();
-        int secondNorm = second.split('/').at(2).toInt();
-        int thirdNorm  = third.split('/').at(2).toInt();
-
-        // Vertices
-
-        vertices.push_back(vertexIndexes.at(firstVert - 1).at(0)); // X
-        vertices.push_back(vertexIndexes.at(firstVert - 1).at(1)); // Y
-        vertices.push_back(vertexIndexes.at(firstVert - 1).at(2)); // Z
-
-        vertices.push_back(vertexIndexes.at(secondVert - 1).at(0));
-        vertices.push_back(vertexIndexes.at(secondVert - 1).at(1));
-        vertices.push_back(vertexIndexes.at(secondVert - 1).at(2));
-
-        vertices.push_back(vertexIndexes.at(thirdVert - 1).at(0));
-        vertices.push_back(vertexIndexes.at(thirdVert - 1).at(1));
-        vertices.push_back(vertexIndexes.at(thirdVert - 1).at(2));
-
-        // Normals
-        normals.push_back(normalIndexes.at(firstNorm - 1).at(0)); // X
-        normals.push_back(normalIndexes.at(firstNorm - 1).at(1)); // Y
-        normals.push_back(normalIndexes.at(firstNorm - 1).at(2)); // Z
-
-        normals.push_back(normalIndexes.at(secondNorm - 1).at(0));
-        normals.push_back(normalIndexes.at(secondNorm - 1).at(1));
-        normals.push_back(normalIndexes.at(secondNorm - 1).at(2));
-
-        normals.push_back(normalIndexes.at(thirdNorm - 1).at(0));
-        normals.push_back(normalIndexes.at(thirdNorm - 1).at(1));
-        normals.push_back(normalIndexes.at(thirdNorm - 1).at(2));
+        // OBJ format = vertexIndex/textureIndex/normalIndex
+        for (int j = 0; j < triangleData.size(); j++)
+        {
+            int vert = triangleData.at(j).split('/').at(VERTEX_INDEX).toInt();
+            int norm = triangleData.at(j).split('/').at(NORMAL_INDEX).toInt();
+            for (int k = 0; k < 3; k++)                     // Coordinates X, Y, Z
+            {
+                vertices.push_back(vertexIndexes.at(vert - 1).at(k));
+                normals.push_back(normalIndexes.at(norm - 1).at(k));
+            }
+        }
     }
 
     return true;
