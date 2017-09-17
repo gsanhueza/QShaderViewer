@@ -19,7 +19,7 @@ vector<float> Model::getCoordinates()
 bool Model::loadGeometry(string filepath)
 {
 //     m_geometryLoaded = m_georeader.loadFile(m_vertices, filepath); // FIXME Reemplazar
-    m_geometryLoaded = m_georeader.loadOBJ(m_vertices, m_normals, filepath);
+    m_geometryLoaded = m_georeader.loadOBJ(m_vertices, filepath);
 
     return m_geometryLoaded;
 }

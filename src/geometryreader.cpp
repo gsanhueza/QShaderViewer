@@ -48,7 +48,7 @@ bool GeometryReader::loadFile(vector<float> &coordinates, string filepath)
     return true;
 }
 
-bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, string filepath)
+bool GeometryReader::loadOBJ(vector<float> &vertices, string filepath)
 {
     if (filepath == "")
     {
@@ -65,6 +65,9 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, st
 
     vector<vector<float>> vertexIndexes;
     vector<vector<float>> normalIndexes;
+
+    // Limpieza de geometría anterior
+    vertices.clear();
 
     // File parsing
     if (myFile.is_open())
@@ -139,17 +142,17 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, st
         vertices.push_back(vertexIndexes.at(thirdVert - 1).at(2));
 
         // Normals
-        vertices.push_back(vertexIndexes.at(firstNorm - 1).at(0)); // X
-        vertices.push_back(vertexIndexes.at(firstNorm - 1).at(1)); // Y
-        vertices.push_back(vertexIndexes.at(firstNorm - 1).at(2)); // Z
+        vertices.push_back(normalIndexes.at(firstNorm - 1).at(0)); // X
+        vertices.push_back(normalIndexes.at(firstNorm - 1).at(1)); // Y
+        vertices.push_back(normalIndexes.at(firstNorm - 1).at(2)); // Z
 
-        vertices.push_back(vertexIndexes.at(secondNorm - 1).at(0));
-        vertices.push_back(vertexIndexes.at(secondNorm - 1).at(1));
-        vertices.push_back(vertexIndexes.at(secondNorm - 1).at(2));
+        vertices.push_back(normalIndexes.at(secondNorm - 1).at(0));
+        vertices.push_back(normalIndexes.at(secondNorm - 1).at(1));
+        vertices.push_back(normalIndexes.at(secondNorm - 1).at(2));
 
-        vertices.push_back(vertexIndexes.at(thirdNorm - 1).at(0));
-        vertices.push_back(vertexIndexes.at(thirdNorm - 1).at(1));
-        vertices.push_back(vertexIndexes.at(thirdNorm - 1).at(2));
+        vertices.push_back(normalIndexes.at(thirdNorm - 1).at(0));
+        vertices.push_back(normalIndexes.at(thirdNorm - 1).at(1));
+        vertices.push_back(normalIndexes.at(thirdNorm - 1).at(2));
     }
 
     return true;
