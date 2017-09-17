@@ -31,10 +31,17 @@ void OGLWidget::setupVertexAttribs()
 {
     m_vbo.bind();
     QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
-    f->glEnableVertexAttribArray(0);
-    f->glEnableVertexAttribArray(1);
-    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), 0);
-    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), reinterpret_cast<void *>(3 * sizeof(GLfloat)));
+    f->glEnableVertexAttribArray(0); // Vertex
+    f->glEnableVertexAttribArray(1); // Normal
+    // glVertexAttribPointer(GLuint index​, GLint size​, GLenum type​, GLboolean normalized​, GLsizei stride​, const GLvoid * pointer​);
+    // index = Vertex(0) or Normal(1), can be more if needed
+    // size = Coordinates(x, y, z) => 3
+    // type = GL_FLOAT, as that's the type of each coordinate
+    // normalized = false, as there's no need to normalize here
+    // stride = 0, which implies that vertices are side-to-side (VVVNNN)
+    // pointer = where is the start of the data (in VVVNNN, 0 = start of vertices and 3 * size(vertexArray) = start of normals)
+    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(3 * sizeof(m_model.getVertices().size())));
     m_vbo.release();
 }
 
@@ -103,8 +110,14 @@ void OGLWidget::paintGL()
     // Clear old geometry data from vector.
     m_data.clear();
 
-    // Load geometry from local file
-    for (float point : m_model.getCoordinates())
+    // Load geometry (vertices) from local file
+    for (float point : m_model.getVertices())
+    {
+        m_data.append(point);
+    }
+
+    // Load geometry (normals) from local file
+    for (float point : m_model.getNormals())
     {
         m_data.append(point);
     }

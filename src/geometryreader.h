@@ -34,7 +34,7 @@ public:
     ~GeometryReader();
 
     bool loadFile(vector<float> &coordinates, string filepath);
-    bool loadOBJ(vector<float> &vertices, string filepath);
+    bool loadOBJ(vector<float> &vertices, vector<float> &normals, string filepath);
 
 private:
     string data;

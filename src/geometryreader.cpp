@@ -48,7 +48,7 @@ bool GeometryReader::loadFile(vector<float> &coordinates, string filepath)
     return true;
 }
 
-bool GeometryReader::loadOBJ(vector<float> &vertices, string filepath)
+bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, string filepath)
 {
     if (filepath == "")
     {
@@ -142,17 +142,17 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, string filepath)
         vertices.push_back(vertexIndexes.at(thirdVert - 1).at(2));
 
         // Normals
-        vertices.push_back(normalIndexes.at(firstNorm - 1).at(0)); // X
-        vertices.push_back(normalIndexes.at(firstNorm - 1).at(1)); // Y
-        vertices.push_back(normalIndexes.at(firstNorm - 1).at(2)); // Z
+        normals.push_back(normalIndexes.at(firstNorm - 1).at(0)); // X
+        normals.push_back(normalIndexes.at(firstNorm - 1).at(1)); // Y
+        normals.push_back(normalIndexes.at(firstNorm - 1).at(2)); // Z
 
-        vertices.push_back(normalIndexes.at(secondNorm - 1).at(0));
-        vertices.push_back(normalIndexes.at(secondNorm - 1).at(1));
-        vertices.push_back(normalIndexes.at(secondNorm - 1).at(2));
+        normals.push_back(normalIndexes.at(secondNorm - 1).at(0));
+        normals.push_back(normalIndexes.at(secondNorm - 1).at(1));
+        normals.push_back(normalIndexes.at(secondNorm - 1).at(2));
 
-        vertices.push_back(normalIndexes.at(thirdNorm - 1).at(0));
-        vertices.push_back(normalIndexes.at(thirdNorm - 1).at(1));
-        vertices.push_back(normalIndexes.at(thirdNorm - 1).at(2));
+        normals.push_back(normalIndexes.at(thirdNorm - 1).at(0));
+        normals.push_back(normalIndexes.at(thirdNorm - 1).at(1));
+        normals.push_back(normalIndexes.at(thirdNorm - 1).at(2));
     }
 
     return true;
