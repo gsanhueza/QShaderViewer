@@ -102,24 +102,22 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, st
     {
         QString line(parsedVertices.at(i).c_str());
         QStringList list = line.split(' ');
-        for (QString coord : list)
-        {
-            vector<float> v({list.at(0).toFloat(), list.at(1).toFloat(), list.at(2).toFloat()});
-            vertexIndexes.push_back(v);
-        }
+        vector<float> v({list.at(0).toFloat(), list.at(1).toFloat(), list.at(2).toFloat()});
+        vertexIndexes.push_back(v);
     }
+
+    cout << "(8) vertexIndexes tiene " << vertexIndexes.size() << " elementos." << endl;
 
     // Processing parsed data (Normals)
     for (unsigned int i = 0; i < parsedNormals.size(); i++)
     {
         QString line(parsedNormals.at(i).c_str());
         QStringList list = line.split(' ');
-        for (QString coord : line)
-        {
-            vector<float> n({list.at(0).toFloat(), list.at(1).toFloat(), list.at(2).toFloat()});
-            normalIndexes.push_back(n);
-        }
+        vector<float> n({list.at(0).toFloat(), list.at(1).toFloat(), list.at(2).toFloat()});
+        normalIndexes.push_back(n);
     }
+
+    cout << "(6) normalIndexes tiene " << normalIndexes.size() << " elementos." << endl;
 
     // Processing parsed data (Faces)
     for (unsigned int i = 0; i < parsedFaces.size(); i++)
@@ -134,36 +132,49 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, st
         int secondVert = second.split('/').at(0).toInt();
         int thirdVert  = third.split('/').at(0).toInt();
 
+        cout << "first vertex position index is : " << firstVert << endl;
+        cout << "second vertex position index is : " << secondVert << endl;
+        cout << "third vertex position index is : " << thirdVert << endl;
+
         int firstNorm  = first.split('/').at(2).toInt();
         int secondNorm = second.split('/').at(2).toInt();
         int thirdNorm  = third.split('/').at(2).toInt();
 
         // Vertices
-        vertices.push_back(vertexIndexes.at(firstVert).at(0)); // X
-        vertices.push_back(vertexIndexes.at(firstVert).at(1)); // Y
-        vertices.push_back(vertexIndexes.at(firstVert).at(2)); // Z
+        // X
+        vertices.push_back(vertexIndexes.at(firstVert - 1).at(0));
+        // Y
+        vertices.push_back(vertexIndexes.at(firstVert - 1).at(1));
+        // Z
+        vertices.push_back(vertexIndexes.at(firstVert - 1).at(2));
 
-        vertices.push_back(vertexIndexes.at(secondVert).at(0));
-        vertices.push_back(vertexIndexes.at(secondVert).at(1));
-        vertices.push_back(vertexIndexes.at(secondVert).at(2));
+        vertices.push_back(vertexIndexes.at(secondVert - 1).at(0));
+        vertices.push_back(vertexIndexes.at(secondVert - 1).at(1));
+        vertices.push_back(vertexIndexes.at(secondVert - 1).at(2));
 
-        vertices.push_back(vertexIndexes.at(thirdVert).at(0));
-        vertices.push_back(vertexIndexes.at(thirdVert).at(1));
-        vertices.push_back(vertexIndexes.at(thirdVert).at(2));
+        vertices.push_back(vertexIndexes.at(thirdVert - 1).at(0));
+        vertices.push_back(vertexIndexes.at(thirdVert - 1).at(1));
+        vertices.push_back(vertexIndexes.at(thirdVert - 1).at(2));
 
         // Normals
-        normals.push_back(vertexIndexes.at(firstNorm).at(0)); // X
-        normals.push_back(vertexIndexes.at(firstNorm).at(1)); // Y
-        normals.push_back(vertexIndexes.at(firstNorm).at(2)); // Z
+        // X
+        normals.push_back(vertexIndexes.at(firstNorm - 1).at(0));
+        // Y
+        normals.push_back(vertexIndexes.at(firstNorm - 1).at(1));
+        // Z
+        normals.push_back(vertexIndexes.at(firstNorm - 1).at(2));
 
-        normals.push_back(vertexIndexes.at(secondNorm).at(0));
-        normals.push_back(vertexIndexes.at(secondNorm).at(1));
-        normals.push_back(vertexIndexes.at(secondNorm).at(2));
+        normals.push_back(vertexIndexes.at(secondNorm - 1).at(0));
+        normals.push_back(vertexIndexes.at(secondNorm - 1).at(1));
+        normals.push_back(vertexIndexes.at(secondNorm - 1).at(2));
 
-        normals.push_back(vertexIndexes.at(thirdNorm).at(0));
-        normals.push_back(vertexIndexes.at(thirdNorm).at(1));
-        normals.push_back(vertexIndexes.at(thirdNorm).at(2));
+        normals.push_back(vertexIndexes.at(thirdNorm - 1).at(0));
+        normals.push_back(vertexIndexes.at(thirdNorm - 1).at(1));
+        normals.push_back(vertexIndexes.at(thirdNorm - 1).at(2));
     }
+
+    cout << "(12) parsedFaces tiene " << parsedFaces.size() << " elementos." << endl;
+    cout << "(36*3) Hay en total " << vertices.size() << " vértices." << endl;
 
     return true;
 }

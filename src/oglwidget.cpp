@@ -104,18 +104,10 @@ void OGLWidget::paintGL()
     m_data.clear();
 
     // Load geometry from local file
-    int i = 0;
     for (float point : m_model.getCoordinates())
     {
-        cout << point << " ";
-        i++;
-        if (i % 3 == 0)
-        {
-            cout << endl;
-        }
         m_data.append(point);
     }
-    cout << " - - - " << endl;
 
 //     m_vbo.allocate(m_logo.constData(), m_logo.count() * sizeof(GLfloat));
     m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat)); // FIXME Reemplazar
@@ -123,7 +115,7 @@ void OGLWidget::paintGL()
     // Store the vertex attribute bindings for the program.
     setupVertexAttribs();
 
-    glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3); // FIXME Reemplazar
+    glDrawArrays(GL_TRIANGLES, 0, /*m_data.count() /*/ 3); // FIXME Reemplazar
 //     glDrawArrays(GL_TRIANGLES, 0, m_logo.vertexCount());
 
     m_program->release();
