@@ -70,7 +70,7 @@ void OGLWidget::generateGLProgram()
 
     // Our camera has a initial position.
     m_camera.setToIdentity();
-    m_camera.translate(0, 0, -1);
+    m_camera.translate(0, 0, -5);
 
     m_program->release();
 }
@@ -86,7 +86,7 @@ void OGLWidget::paintGL()
     // Allow rotation of the world
     m_world.rotate(m_xRot / 16.0f, 1, 0, 0);
     m_world.rotate(m_yRot / 16.0f, 0, 1, 0);
-    m_world.rotate(180.0f - m_zRot / 16.0f, 0, 0, 1);
+    m_world.rotate(m_zRot / 16.0f, 0, 0, 1);
 
     QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
     m_program->bind();

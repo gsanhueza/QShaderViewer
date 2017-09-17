@@ -34,19 +34,11 @@ bool GeometryReader::loadFile(vector<float> &coordinates, string filepath)
 
         for (unsigned int i = 0; i < lines.size(); ++i)
         {
-            string buf;                                         // Buffer
-            stringstream ss(lines.at(i));                       // String dentro de un stream
-
-            vector<float> tokens;                               // Vector de coordenadas (tamaño 3)
-
-            while (ss >> buf)                                   // Separamos por espacios
-            {
-                tokens.push_back(stoi(buf));
-            }
-
-            coordinates.push_back(tokens.at(0)); // X
-            coordinates.push_back(tokens.at(1)); // Y
-            coordinates.push_back(tokens.at(2)); // Z
+            QString line = lines.at(i).c_str();
+            QStringList list = line.split(' ');
+            coordinates.push_back(list.at(0).toFloat());    // X
+            coordinates.push_back(list.at(1).toFloat());    // Y
+            coordinates.push_back(list.at(2).toFloat());    // Z
         }
     }
     catch(exception e)
