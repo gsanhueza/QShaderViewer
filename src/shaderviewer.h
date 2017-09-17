@@ -58,6 +58,13 @@ public:
     */
     ~ShaderViewer();
 
+    /**
+    * @brief Receptor de teclas pulsadas.
+    *
+    * @param event p_event: Evento. Ejemplo, Qt::Key_Plus.
+    */
+    void keyPressEvent(QKeyEvent *event) override;
+
 public slots:
     /**
     * @brief Receiver of a Qt signal when the Load Geometry action is clicked in the window.
@@ -95,6 +102,7 @@ signals:
      *
      */
     void emitModel(const Model &m);
+    void keyPressed(QKeyEvent *event);
 
 private:
     Ui::ShaderViewer *ui;

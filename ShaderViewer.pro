@@ -13,13 +13,15 @@ SOURCES +=  src/main.cpp \
             src/model.cpp \
             src/geometryreader.cpp \
             src/tutorial.cpp \
-            src/about.cpp
+            src/about.cpp \
+            src/logo.cpp
 
 HEADERS +=  src/shaderviewer.h \
             src/oglwidget.h \
             src/model.h \
             src/geometryreader.h \
             src/tutorial.h \
-            src/about.h
+            src/about.h \
+            src/logo.h
 
 LIBS    += -lglut -LGLU

@@ -115,7 +115,8 @@ public:
 
 private:
     GeometryReader m_georeader;
-    vector<vector<float>> m_coordinates;
+    vector<vector<float>> m_vertices;
+    vector<vector<float>> m_normals;
 
     bool m_geometryLoaded;
     bool m_vertexLoaded;

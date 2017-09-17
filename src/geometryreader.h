@@ -19,6 +19,8 @@
 #ifndef _GEOMETRYREADER_H_
 #define _GEOMETRYREADER_H_
 
+#include <QStringRef>
+#include <QStringList>
 #include <vector>
 #include <fstream>
 #include <sstream>
@@ -32,6 +34,7 @@ public:
     ~GeometryReader();
 
     bool loadFile(vector<vector<float>> &coordinates, string filepath);
+    bool loadOBJ(vector<vector<float>> &vertices, vector<vector<float>> &normals, string filepath);
 
 private:
     string data;

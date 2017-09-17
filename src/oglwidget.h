@@ -31,6 +31,7 @@
 #include <GL/glu.h>
 #include <GL/gl.h>
 
+#include "logo.h"
 #include "model.h"
 
 class OGLWidget : public QOpenGLWidget, protected QOpenGLFunctions
@@ -43,6 +44,7 @@ public:
 
 public slots:
     void receiveModel(const Model &m);
+    void keyPressed(QKeyEvent *event);
     void setXRotation(int angle);
     void setYRotation(int angle);
     void setZRotation(int angle);
@@ -76,6 +78,11 @@ private:
     int m_yRot;
     int m_zRot;
 
+    int m_xLight;
+    int m_yLight;
+    int m_zLight;
+
     QVector<GLfloat> m_data;
+    Logo m_logo;
 };
 #endif
