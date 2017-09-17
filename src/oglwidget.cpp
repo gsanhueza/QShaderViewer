@@ -6,7 +6,10 @@ OGLWidget::OGLWidget(QWidget* parent)
       m_program(0),
       m_xRot(0),
       m_yRot(0),
-      m_zRot(0)
+      m_zRot(0),
+      m_xLight(0),
+      m_yLight(0),
+      m_zLight(70)
 {
 }
 
@@ -30,7 +33,7 @@ void OGLWidget::setupVertexAttribs()
     QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
     f->glEnableVertexAttribArray(0);
     f->glEnableVertexAttribArray(1);
-    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
+    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0); // FIXME Verificar qué significa 3 o 6
     f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<void *>(3 * sizeof(GLfloat)));
     m_vbo.release();
 }
@@ -69,9 +72,6 @@ void OGLWidget::generateGLProgram()
     m_camera.setToIdentity();
     m_camera.translate(0, 0, -1);
 
-    // Light position is fixed.
-    m_program->setUniformValue(m_lightPosLoc, QVector3D(0, 0, 70));
-
     m_program->release();
 }
 
@@ -94,6 +94,7 @@ void OGLWidget::paintGL()
     m_program->setUniformValue(m_mvMatrixLoc, m_camera * m_world);
     QMatrix3x3 normalMatrix = m_world.normalMatrix();
     m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
+    m_program->setUniformValue(m_lightPosLoc, QVector3D(m_xLight, m_yLight, m_zLight));
 
     // Setup our vertex buffer object.
     m_vbo.create();
@@ -111,12 +112,12 @@ void OGLWidget::paintGL()
     }
 
     m_vbo.allocate(m_logo.constData(), m_logo.count() * sizeof(GLfloat));
-//     m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat));
+//     m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat)); // FIXME Reemplazar
 
     // Store the vertex attribute bindings for the program.
     setupVertexAttribs();
 
-//     glDrawArrays(GL_TRIANGLES, 0, m_data.count());
+//     glDrawArrays(GL_TRIANGLES, 0, m_data.count()); // FIXME Reemplazar
     glDrawArrays(GL_TRIANGLES, 0, m_logo.vertexCount());
 
     m_program->release();
@@ -146,6 +147,24 @@ void OGLWidget::keyPressed(QKeyEvent *event)
             break;
         case Qt::Key_Minus:
             m_camera.translate(0, 0, -0.1);
+            break;
+        case Qt::Key_A:
+            m_xLight -= 1;
+            break;
+        case Qt::Key_D:
+            m_xLight += 1;
+            break;
+        case Qt::Key_W:
+            m_yLight -= 1;
+            break;
+        case Qt::Key_S:
+            m_yLight += 1;
+            break;
+        case Qt::Key_Q:
+            m_zLight -= 1;
+            break;
+        case Qt::Key_E:
+            m_zLight += 1;
             break;
         default:
             break;

@@ -78,6 +78,10 @@ private:
     int m_yRot;
     int m_zRot;
 
+    int m_xLight;
+    int m_yLight;
+    int m_zLight;
+
     QVector<GLfloat> m_data;
     Logo m_logo;
 };
