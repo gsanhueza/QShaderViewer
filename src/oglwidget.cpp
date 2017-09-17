@@ -104,10 +104,18 @@ void OGLWidget::paintGL()
     m_data.clear();
 
     // Load geometry from local file
+    int i = 0;
     for (float point : m_model.getCoordinates())
     {
-        m_data.append(point / 100);
+        cout << point << " ";
+        i++;
+        if (i % 3 == 0)
+        {
+            cout << endl;
+        }
+        m_data.append(point);
     }
+    cout << " - - - " << endl;
 
 //     m_vbo.allocate(m_logo.constData(), m_logo.count() * sizeof(GLfloat));
     m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat)); // FIXME Reemplazar
