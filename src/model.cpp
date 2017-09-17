@@ -11,9 +11,14 @@ Model::~Model()
 {
 }
 
-vector<float> Model::getCoordinates()
+vector<float> Model::getVertices()
 {
     return m_vertices;
+}
+
+vector<float> Model::getNormals()
+{
+    return m_normals;
 }
 
 bool Model::loadGeometry(string filepath)
