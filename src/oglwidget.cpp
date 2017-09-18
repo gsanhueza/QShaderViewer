@@ -9,7 +9,8 @@ OGLWidget::OGLWidget(QWidget* parent)
       m_zRot(0),
       m_xLight(0),
       m_yLight(0),
-      m_zLight(70)
+      m_zLight(70),
+      m_dataAlreadyLoaded(false)
 {
 }
 
@@ -82,27 +83,8 @@ void OGLWidget::generateGLProgram()
     m_program->release();
 }
 
-void OGLWidget::paintGL()
+void OGLWidget::loadData()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
-
-    m_world.setToIdentity();
-
-    // Allow rotation of the world
-    m_world.rotate(m_xRot / 16.0f, 1, 0, 0);
-    m_world.rotate(m_yRot / 16.0f, 0, 1, 0);
-    m_world.rotate(m_zRot / 16.0f, 0, 0, 1);
-
-    QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
-    m_program->bind();
-    m_program->setUniformValue(m_projMatrixLoc, m_proj);
-    m_program->setUniformValue(m_mvMatrixLoc, m_camera * m_world);
-    QMatrix3x3 normalMatrix = m_world.normalMatrix();
-    m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
-    m_program->setUniformValue(m_lightPosLoc, QVector3D(m_xLight, m_yLight, m_zLight));
-
     // Setup our vertex buffer object.
     m_vbo.create();
     m_vbo.bind();
@@ -122,11 +104,46 @@ void OGLWidget::paintGL()
         m_data.append(point);
     }
 
-    m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat)); // FIXME Realmente necesitamos cargar a cada rato?
+    // Allocate data into VBO
+    m_vbo.allocate(m_data.constData(), m_data.count() * sizeof(GLfloat));
 
     // Store the vertex attribute bindings for the program.
     setupVertexAttribs();
+    m_dataAlreadyLoaded = true;
+}
 
+void OGLWidget::paintGL()
+{
+    // Clear screen
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+
+    m_world.setToIdentity();
+
+    // Allow rotation of the world
+    m_world.rotate(m_xRot / 16.0f, 1, 0, 0);
+    m_world.rotate(m_yRot / 16.0f, 0, 1, 0);
+    m_world.rotate(m_zRot / 16.0f, 0, 0, 1);
+
+    QOpenGLVertexArrayObject::Binder vaoBinder(&m_vao);
+
+    // Bind data of shaders to program
+    m_program->bind();
+    m_program->setUniformValue(m_projMatrixLoc, m_proj);
+    m_program->setUniformValue(m_mvMatrixLoc, m_camera * m_world);
+    QMatrix3x3 normalMatrix = m_world.normalMatrix();
+    m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
+    m_program->setUniformValue(m_lightPosLoc, QVector3D(m_xLight, m_yLight, m_zLight));
+
+    // Load new data only on geometry or shader change
+    if (not m_dataAlreadyLoaded)
+    {
+        cout << "Loading data..." << endl;
+        loadData();
+    }
+
+    // Draw triangulation
     glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3);
 
     m_program->release();
@@ -142,6 +159,7 @@ void OGLWidget::receiveModel(const Model &m)
 {
     m_model = m;
     m_program = nullptr;
+    m_dataAlreadyLoaded = false;
     generateGLProgram();
     update();
 }
@@ -149,6 +167,7 @@ void OGLWidget::receiveModel(const Model &m)
 void OGLWidget::keyPressed(QKeyEvent *event)
 {
     // Plus and Minus keys move the camera
+    // WASDQE move the light
     switch(event->key())
     {
         case Qt::Key_Plus:
