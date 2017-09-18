@@ -61,6 +61,7 @@ private:
 
     void setupVertexAttribs();
     void generateGLProgram();
+    void loadData();
     void cleanup();
 
     QOpenGLVertexArrayObject m_vao;
@@ -83,6 +84,7 @@ private:
     int m_zLight;
 
     QVector<GLfloat> m_data;
+    bool m_dataAlreadyLoaded;
     Logo m_logo;
 };
 #endif
