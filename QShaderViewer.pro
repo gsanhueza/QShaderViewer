@@ -1,4 +1,4 @@
-QT += core gui opengl widgets
+QT += core gui widgets
 
 TARGET   = qshaderviewer
 TEMPLATE = app
@@ -22,4 +22,4 @@ HEADERS +=  src/qshaderviewer.h \
             src/tutorial.h \
             src/about.h \
 
-LIBS    += -lglut -LGLU
+# LIBS    += -lglut -LGLU
