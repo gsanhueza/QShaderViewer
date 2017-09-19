@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <author>Gabriel Sanhueza</author>
- <class>ShaderViewer</class>
- <widget class="QMainWindow" name="ShaderViewer">
+ <class>QShaderViewer</class>
+ <widget class="QMainWindow" name="QShaderViewer">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,7 +12,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ShaderViewer</string>
+   <string>QShaderViewer</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -112,7 +112,7 @@
   <connection>
    <sender>actionExit</sender>
    <signal>triggered()</signal>
-   <receiver>ShaderViewer</receiver>
+   <receiver>QShaderViewer</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -128,7 +128,7 @@
   <connection>
    <sender>actionLoadGeometry</sender>
    <signal>triggered()</signal>
-   <receiver>ShaderViewer</receiver>
+   <receiver>QShaderViewer</receiver>
    <slot>loadGeometryClicked()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -144,7 +144,7 @@
   <connection>
    <sender>actionLoadVertex</sender>
    <signal>triggered()</signal>
-   <receiver>ShaderViewer</receiver>
+   <receiver>QShaderViewer</receiver>
    <slot>loadVertexClicked()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -160,7 +160,7 @@
   <connection>
    <sender>actionLoadFragment</sender>
    <signal>triggered()</signal>
-   <receiver>ShaderViewer</receiver>
+   <receiver>QShaderViewer</receiver>
    <slot>loadFragmentClicked()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -174,7 +174,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>ShaderViewer</sender>
+   <sender>QShaderViewer</sender>
    <signal>emitModel(Model)</signal>
    <receiver>openGLWidget</receiver>
    <slot>receiveModel(Model)</slot>
@@ -192,7 +192,7 @@
   <connection>
    <sender>actionTutorial</sender>
    <signal>triggered()</signal>
-   <receiver>ShaderViewer</receiver>
+   <receiver>QShaderViewer</receiver>
    <slot>loadTutorialClicked()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -208,7 +208,7 @@
   <connection>
    <sender>actionAbout</sender>
    <signal>triggered()</signal>
-   <receiver>ShaderViewer</receiver>
+   <receiver>QShaderViewer</receiver>
    <slot>loadAboutClicked()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -222,7 +222,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>ShaderViewer</sender>
+   <sender>QShaderViewer</sender>
    <signal>keyPressed(QKeyEvent*)</signal>
    <receiver>openGLWidget</receiver>
    <slot>keyPressed(QKeyEvent*)</slot>

@@ -78,8 +78,8 @@ void OGLWidget::generateGLProgram()
 
     // Our camera has a initial position.
     m_camera.setToIdentity();
-    m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 0, 1));
-//     m_camera.translate(0, 0, -5);
+//     m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 0, 1)); // FIXME Necesito que la camara, el mundo y la luz sean configurables
+    m_camera.translate(0, 0, -5);
 
     m_program->release();
 }
@@ -147,9 +147,9 @@ void OGLWidget::paintGL()
     // Draw triangulation
     glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3);
 
-    cout << "Camera: (" << 0 << ", " << 0 << ", " << 0 << ")" << endl;
-    cout << "Light : (" << m_xLight << ", " << m_yLight << ", " << m_zLight << ")" << endl;
-    cout << "World : (" << 0 << ", " << 0 << ", " << 0 << ")" << endl;
+//     cout << "Camera: (" << 0 << ", " << 0 << ", " << 0 << ")" << endl;
+//     cout << "Light : (" << m_xLight << ", " << m_yLight << ", " << m_zLight << ")" << endl;
+//     cout << "World : (" << 0 << ", " << 0 << ", " << 0 << ")" << endl;
 
     m_program->release();
 }
