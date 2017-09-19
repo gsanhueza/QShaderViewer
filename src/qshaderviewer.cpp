@@ -1,9 +1,9 @@
-#include "shaderviewer.h"
-#include "ui_shaderviewer.h"
+#include "qshaderviewer.h"
+#include "ui_qshaderviewer.h"
 
-ShaderViewer::ShaderViewer(Model model, QWidget *parent) :
+QShaderViewer::QShaderViewer(Model model, QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::ShaderViewer),
+    ui(new Ui::QShaderViewer),
     m_tutorial(new Tutorial),
     m_about(new About),
     m_model(model)
@@ -19,14 +19,14 @@ ShaderViewer::ShaderViewer(Model model, QWidget *parent) :
     this->move(x, y);
 }
 
-ShaderViewer::~ShaderViewer()
+QShaderViewer::~QShaderViewer()
 {
     delete m_tutorial;
     delete m_about;
     delete ui;
 }
 
-void ShaderViewer::loadGeometryClicked()
+void QShaderViewer::loadGeometryClicked()
 {
     QString filepath = QFileDialog::getOpenFileName(this, tr("Geometry files"), ".", tr("Geometry files (*)"));
 
@@ -49,7 +49,7 @@ void ShaderViewer::loadGeometryClicked()
     }
 }
 
-void ShaderViewer::loadVertexClicked()
+void QShaderViewer::loadVertexClicked()
 {
     QString filepath = QFileDialog::getOpenFileName(this, tr("Vertex shaders"), ".", tr("Vertex shaders (*.glsl)"));
 
@@ -72,7 +72,7 @@ void ShaderViewer::loadVertexClicked()
     }
 }
 
-void ShaderViewer::loadFragmentClicked()
+void QShaderViewer::loadFragmentClicked()
 {
     QString filepath = QFileDialog::getOpenFileName(this, tr("Fragment shaders"), ".", tr("Fragment shaders (*.glsl)"));
 
@@ -95,17 +95,17 @@ void ShaderViewer::loadFragmentClicked()
     }
 }
 
-void ShaderViewer::loadTutorialClicked()
+void QShaderViewer::loadTutorialClicked()
 {
     m_tutorial->show();
 }
 
-void ShaderViewer::loadAboutClicked()
+void QShaderViewer::loadAboutClicked()
 {
     m_about->show();
 }
 
-void ShaderViewer::keyPressEvent(QKeyEvent *event)
+void QShaderViewer::keyPressEvent(QKeyEvent *event)
 {
     emit keyPressed(event);
 }

@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _SHADERVIEWER_H_
-#define _SHADERVIEWER_H_
+#ifndef _QSHADERVIEWER_H_
+#define _QSHADERVIEWER_H_
 
 #include <QDesktopWidget>
 #include <QMainWindow>
@@ -27,36 +27,36 @@
 #include "tutorial.h"
 
 /**
-* @brief Namespace used by shaderviewer.ui
+* @brief Namespace used by qshaderviewer.ui
 *
 */
 namespace Ui
 {
-    class ShaderViewer;
+    class QShaderViewer;
 }
 
 /**
-* @brief ShaderViewer class. Contains the whole window, menu bar, OGLWidget and status bar.
+* @brief QShaderViewer class. Contains the whole window, menu bar, OGLWidget and status bar.
 *
 */
-class ShaderViewer : public QMainWindow
+class QShaderViewer : public QMainWindow
 {
     Q_OBJECT;
 
 public:
     /**
-    * @brief ShaderViewer class constructor.
+    * @brief QShaderViewer class constructor.
     *
     * @param model p_model: Model used to load data.
     * @param parent p_parent: Parent of the class. Used by Qt.
     */
-    explicit ShaderViewer(Model model, QWidget *parent = nullptr);
+    explicit QShaderViewer(Model model, QWidget *parent = nullptr);
 
     /**
-    * @brief ShaderViewer class destructor.
+    * @brief QShaderViewer class destructor.
     *
     */
-    ~ShaderViewer();
+    ~QShaderViewer();
 
     /**
     * @brief Receptor de teclas pulsadas.
@@ -105,7 +105,7 @@ signals:
     void keyPressed(QKeyEvent *event);
 
 private:
-    Ui::ShaderViewer *ui;
+    Ui::QShaderViewer *ui;
     Tutorial *m_tutorial;
     About *m_about;
     Model m_model;
