@@ -1,5 +1,5 @@
 /*
- * ShaderViewer is a geometry and shader visualization program.
+ * QShaderViewer is a geometry and shader visualization program.
  * Copyright (C) 2017  Gabriel Sanhueza <gabriel_8032@hotmail.com>
  *
  * This program is free software: you can redistribute it and/or modify

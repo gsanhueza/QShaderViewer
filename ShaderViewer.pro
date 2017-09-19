@@ -1,6 +1,6 @@
 QT += core gui opengl widgets
 
-TARGET   = shaderviewer
+TARGET   = qshaderviewer
 TEMPLATE = app
 
 FORMS   +=  shaderviewer.ui \
@@ -14,7 +14,6 @@ SOURCES +=  src/main.cpp \
             src/geometryreader.cpp \
             src/tutorial.cpp \
             src/about.cpp \
-            src/logo.cpp
 
 HEADERS +=  src/shaderviewer.h \
             src/oglwidget.h \
@@ -22,6 +21,5 @@ HEADERS +=  src/shaderviewer.h \
             src/geometryreader.h \
             src/tutorial.h \
             src/about.h \
-            src/logo.h
 
 LIBS    += -lglut -LGLU

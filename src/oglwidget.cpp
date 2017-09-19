@@ -78,7 +78,8 @@ void OGLWidget::generateGLProgram()
 
     // Our camera has a initial position.
     m_camera.setToIdentity();
-    m_camera.translate(0, 0, -5);
+    m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 0, 1));
+//     m_camera.translate(0, 0, -5);
 
     m_program->release();
 }
@@ -146,6 +147,10 @@ void OGLWidget::paintGL()
     // Draw triangulation
     glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3);
 
+    cout << "Camera: (" << 0 << ", " << 0 << ", " << 0 << ")" << endl;
+    cout << "Light : (" << m_xLight << ", " << m_yLight << ", " << m_zLight << ")" << endl;
+    cout << "World : (" << 0 << ", " << 0 << ", " << 0 << ")" << endl;
+
     m_program->release();
 }
 
@@ -170,12 +175,26 @@ void OGLWidget::keyPressed(QKeyEvent *event)
     // WASDQE move the light
     switch(event->key())
     {
+        // Camera movement
         case Qt::Key_Plus:
             m_camera.translate(0, 0, 0.1);
             break;
         case Qt::Key_Minus:
             m_camera.translate(0, 0, -0.1);
             break;
+        case Qt::Key_Left:
+            m_camera.translate(-0.1, 0, 0);
+            break;
+        case Qt::Key_Right:
+            m_camera.translate(0.1, 0, 0);
+            break;
+        case Qt::Key_Up:
+            m_camera.translate(0, 0.1, 0);
+            break;
+        case Qt::Key_Down:
+            m_camera.translate(0, -0.1, 0);
+            break;
+        // Light movement
         case Qt::Key_A:
             m_xLight -= 1;
             break;
