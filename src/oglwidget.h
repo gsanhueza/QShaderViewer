@@ -66,8 +66,10 @@ private:
     QOpenGLVertexArrayObject m_vao;
     QOpenGLBuffer m_vbo;
     QOpenGLShaderProgram *m_program;
+    int m_modelMatrixLoc;
+    int m_viewMatrixLoc;
     int m_projMatrixLoc;
-    int m_mvMatrixLoc;
+
     int m_normalMatrixLoc;
     int m_lightPosLoc;
     QMatrix4x4 m_proj;
