@@ -138,9 +138,9 @@ void OGLWidget::paintGL()
     m_program->setUniformValue(m_projMatrixLoc, m_proj);
     m_program->setUniformValue(m_modelMatrixLoc, m_world);
     m_program->setUniformValue(m_viewMatrixLoc, m_camera);
-    QMatrix3x3 normalMatrix = m_world.normalMatrix();
+    QMatrix3x3 normalMatrix = (m_camera * m_world).normalMatrix();
     m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
-    m_program->setUniformValue(m_lightPosLoc, QVector3D(m_xLight, m_yLight, m_zLight));
+    m_program->setUniformValue(m_lightPosLoc, QVector3D(-m_xLight, -m_yLight, m_zLight)); // Hack
 
     // Load new data only on geometry or shader change
     if (not m_dataAlreadyLoaded)
