@@ -83,6 +83,7 @@ void OGLWidget::generateGLProgram()
     // Our camera has a initial position.
     m_camera.setToIdentity();
     m_camera.translate(m_xCamPos, m_yCamPos, m_zCamPos);
+//     m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 1, 0));
 
     m_program->release();
 }
