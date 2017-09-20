@@ -76,6 +76,7 @@ private:
     QMatrix4x4 m_camera;
     QMatrix4x4 m_world;
     QPoint m_lastPos;
+
     int m_xRot;
     int m_yRot;
     int m_zRot;
@@ -83,6 +84,10 @@ private:
     int m_xLight;
     int m_yLight;
     int m_zLight;
+
+    float m_xCamPos;
+    float m_yCamPos;
+    float m_zCamPos;
 
     QVector<GLfloat> m_data;
     bool m_dataAlreadyLoaded;
