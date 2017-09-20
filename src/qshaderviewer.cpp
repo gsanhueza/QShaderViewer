@@ -28,7 +28,7 @@ QShaderViewer::~QShaderViewer()
 
 void QShaderViewer::loadGeometryClicked()
 {
-    QString filepath = QFileDialog::getOpenFileName(this, tr("Geometry files"), ".", tr("Geometry files (*)"));
+    QString filepath = QFileDialog::getOpenFileName(this, tr("Geometry files"), ".", tr("Geometry files (OBJ) (*.obj)"));
 
     if (m_model.loadGeometry(filepath.toStdString()))
     {
@@ -51,7 +51,7 @@ void QShaderViewer::loadGeometryClicked()
 
 void QShaderViewer::loadVertexClicked()
 {
-    QString filepath = QFileDialog::getOpenFileName(this, tr("Vertex shaders"), ".", tr("Vertex shaders (*.glsl)"));
+    QString filepath = QFileDialog::getOpenFileName(this, tr("Vertex shaders"), ".", tr("Vertex shaders (GLSL) (*.glsl)"));
 
     if (m_model.loadVertexShader(filepath.toStdString()))
     {
@@ -74,7 +74,7 @@ void QShaderViewer::loadVertexClicked()
 
 void QShaderViewer::loadFragmentClicked()
 {
-    QString filepath = QFileDialog::getOpenFileName(this, tr("Fragment shaders"), ".", tr("Fragment shaders (*.glsl)"));
+    QString filepath = QFileDialog::getOpenFileName(this, tr("Fragment shaders"), ".", tr("Fragment shaders (GLSL) (*.glsl)"));
 
     if (m_model.loadFragmentShader(filepath.toStdString()))
     {

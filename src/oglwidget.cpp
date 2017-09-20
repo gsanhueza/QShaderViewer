@@ -9,7 +9,7 @@ OGLWidget::OGLWidget(QWidget* parent)
       m_zRot(0),
       m_xLight(0),
       m_yLight(0),
-      m_zLight(70),
+      m_zLight(-30),
       m_dataAlreadyLoaded(false)
 {
 }
@@ -78,7 +78,8 @@ void OGLWidget::generateGLProgram()
 
     // Our camera has a initial position.
     m_camera.setToIdentity();
-//     m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 0, 1)); // FIXME Necesito que la camara, el mundo y la luz sean configurables
+    // (eye, center, up)
+    // m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 0, 1)); // FIXME Necesito que la camara, el mundo y la luz sean configurables
     m_camera.translate(0, 0, -5);
 
     m_program->release();
@@ -132,7 +133,7 @@ void OGLWidget::paintGL()
     // Bind data of shaders to program
     m_program->bind();
     m_program->setUniformValue(m_projMatrixLoc, m_proj);
-    m_program->setUniformValue(m_mvMatrixLoc, m_camera * m_world);
+    m_program->setUniformValue(m_mvMatrixLoc, m_world * m_camera);
     QMatrix3x3 normalMatrix = m_world.normalMatrix();
     m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
     m_program->setUniformValue(m_lightPosLoc, QVector3D(m_xLight, m_yLight, m_zLight));
@@ -148,8 +149,9 @@ void OGLWidget::paintGL()
     glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3);
 
 //     cout << "Camera: (" << 0 << ", " << 0 << ", " << 0 << ")" << endl;
-//     cout << "Light : (" << m_xLight << ", " << m_yLight << ", " << m_zLight << ")" << endl;
-//     cout << "World : (" << 0 << ", " << 0 << ", " << 0 << ")" << endl;
+    cout << "Light : (" << m_xLight << ", " << m_yLight << ", " << m_zLight << ")" << endl;
+    cout << "World : (" << m_xRot << ", " << m_yRot << ", " << m_zRot << ")" << endl;
+    cout << endl;
 
     m_program->release();
 }
@@ -196,16 +198,16 @@ void OGLWidget::keyPressed(QKeyEvent *event)
             break;
         // Light movement
         case Qt::Key_A:
-            m_xLight -= 1;
+            m_yLight -= 1;
             break;
         case Qt::Key_D:
+            m_yLight += 1;
+            break;
+        case Qt::Key_S:
             m_xLight += 1;
             break;
         case Qt::Key_W:
-            m_yLight -= 1;
-            break;
-        case Qt::Key_S:
-            m_yLight += 1;
+            m_xLight -= 1;
             break;
         case Qt::Key_Q:
             m_zLight -= 1;
@@ -213,6 +215,11 @@ void OGLWidget::keyPressed(QKeyEvent *event)
         case Qt::Key_E:
             m_zLight += 1;
             break;
+        // Reset
+        case Qt::Key_Space:
+            m_xRot = m_yRot = m_zRot = 0;
+            m_xLight = m_yLight = 0;
+            m_zLight = -30;
         default:
             break;
     }
