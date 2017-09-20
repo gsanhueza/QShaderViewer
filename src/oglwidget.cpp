@@ -153,7 +153,7 @@ void OGLWidget::paintGL()
 
     cout << "Light  : (" << m_xLight << ", " << m_yLight << ", " << m_zLight << ")" << endl;
     cout << "Camera : (" << m_xCamPos << ", " << m_yCamPos << ", " << m_zCamPos << ")" << endl;
-    cout << "Rotate : (" << m_xRot << ", " << m_yRot << ", " << m_zRot << ")" << endl;
+    cout << "Rotate : (" << m_xRot / 16 << ", " << m_yRot / 16 << ", " << m_zRot / 16 << ")" << endl;
     cout << endl;
 
     m_program->release();
