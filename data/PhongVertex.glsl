@@ -12,6 +12,7 @@ uniform vec3 normalMatrix;
 
 void main(){
     vert = vertex;
+    mat4 modelViewMatrix = viewMatrix * modelMatrix;
     vertNormal = normalMatrix * normal;
     gl_Position = projMatrix * viewMatrix * modelMatrix * vec4(vertex, 1.0);
 }
