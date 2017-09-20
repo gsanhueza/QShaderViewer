@@ -79,8 +79,8 @@ void OGLWidget::generateGLProgram()
     // Our camera has a initial position.
     m_camera.setToIdentity();
     // (eye, center, up)
-    // m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 0, 1)); // FIXME Necesito que la camara, el mundo y la luz sean configurables
-    m_camera.translate(0, 0, -5);
+    m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 1, 0)); // FIXME Necesito que la camara, el mundo y la luz sean configurables
+//     m_camera.translate(0, 0, -5);
 
     m_program->release();
 }
