@@ -66,14 +66,17 @@ private:
     QOpenGLVertexArrayObject m_vao;
     QOpenGLBuffer m_vbo;
     QOpenGLShaderProgram *m_program;
+    int m_modelMatrixLoc;
+    int m_viewMatrixLoc;
     int m_projMatrixLoc;
-    int m_mvMatrixLoc;
+
     int m_normalMatrixLoc;
     int m_lightPosLoc;
     QMatrix4x4 m_proj;
     QMatrix4x4 m_camera;
     QMatrix4x4 m_world;
     QPoint m_lastPos;
+
     int m_xRot;
     int m_yRot;
     int m_zRot;
@@ -81,6 +84,10 @@ private:
     int m_xLight;
     int m_yLight;
     int m_zLight;
+
+    float m_xCamPos;
+    float m_yCamPos;
+    float m_zCamPos;
 
     QVector<GLfloat> m_data;
     bool m_dataAlreadyLoaded;

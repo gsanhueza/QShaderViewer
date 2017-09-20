@@ -9,7 +9,10 @@ OGLWidget::OGLWidget(QWidget* parent)
       m_zRot(0),
       m_xLight(0),
       m_yLight(0),
-      m_zLight(70),
+      m_zLight(-30),
+      m_xCamPos(0),
+      m_yCamPos(0),
+      m_zCamPos(-5),
       m_dataAlreadyLoaded(false)
 {
 }
@@ -62,8 +65,9 @@ void OGLWidget::generateGLProgram()
     m_program->link();
 
     m_program->bind();
+    m_modelMatrixLoc = m_program->uniformLocation("modelMatrix");
+    m_viewMatrixLoc = m_program->uniformLocation("viewMatrix");
     m_projMatrixLoc = m_program->uniformLocation("projMatrix");
-    m_mvMatrixLoc = m_program->uniformLocation("mvMatrix");
     m_normalMatrixLoc = m_program->uniformLocation("normalMatrix");
     m_lightPosLoc = m_program->uniformLocation("lightPos");
 
@@ -78,8 +82,7 @@ void OGLWidget::generateGLProgram()
 
     // Our camera has a initial position.
     m_camera.setToIdentity();
-//     m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 0, 1)); // FIXME Necesito que la camara, el mundo y la luz sean configurables
-    m_camera.translate(0, 0, -5);
+    m_camera.translate(m_xCamPos, m_yCamPos, m_zCamPos);
 
     m_program->release();
 }
@@ -132,7 +135,8 @@ void OGLWidget::paintGL()
     // Bind data of shaders to program
     m_program->bind();
     m_program->setUniformValue(m_projMatrixLoc, m_proj);
-    m_program->setUniformValue(m_mvMatrixLoc, m_camera * m_world);
+    m_program->setUniformValue(m_modelMatrixLoc, m_world);
+    m_program->setUniformValue(m_viewMatrixLoc, m_camera);
     QMatrix3x3 normalMatrix = m_world.normalMatrix();
     m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
     m_program->setUniformValue(m_lightPosLoc, QVector3D(m_xLight, m_yLight, m_zLight));
@@ -147,9 +151,10 @@ void OGLWidget::paintGL()
     // Draw triangulation
     glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3);
 
-//     cout << "Camera: (" << 0 << ", " << 0 << ", " << 0 << ")" << endl;
-//     cout << "Light : (" << m_xLight << ", " << m_yLight << ", " << m_zLight << ")" << endl;
-//     cout << "World : (" << 0 << ", " << 0 << ", " << 0 << ")" << endl;
+    cout << "Light  : (" << m_xLight << ", " << m_yLight << ", " << m_zLight << ")" << endl;
+    cout << "Camera : (" << m_xCamPos << ", " << m_yCamPos << ", " << m_zCamPos << ")" << endl;
+    cout << "Rotate : (" << m_xRot / 16 << ", " << m_yRot / 16 << ", " << m_zRot / 16 << ")" << endl;
+    cout << endl;
 
     m_program->release();
 }
@@ -177,22 +182,22 @@ void OGLWidget::keyPressed(QKeyEvent *event)
     {
         // Camera movement
         case Qt::Key_Plus:
-            m_camera.translate(0, 0, 0.1);
+            m_zCamPos += 0.1;
             break;
         case Qt::Key_Minus:
-            m_camera.translate(0, 0, -0.1);
+            m_zCamPos -= 0.1;
             break;
         case Qt::Key_Left:
-            m_camera.translate(-0.1, 0, 0);
+            m_xCamPos -= 0.1;
             break;
         case Qt::Key_Right:
-            m_camera.translate(0.1, 0, 0);
+            m_xCamPos += 0.1;
             break;
         case Qt::Key_Up:
-            m_camera.translate(0, 0.1, 0);
+            m_yCamPos += 0.1;
             break;
         case Qt::Key_Down:
-            m_camera.translate(0, -0.1, 0);
+            m_yCamPos -= 0.1;
             break;
         // Light movement
         case Qt::Key_A:
@@ -201,10 +206,10 @@ void OGLWidget::keyPressed(QKeyEvent *event)
         case Qt::Key_D:
             m_xLight += 1;
             break;
-        case Qt::Key_W:
+        case Qt::Key_S:
             m_yLight -= 1;
             break;
-        case Qt::Key_S:
+        case Qt::Key_W:
             m_yLight += 1;
             break;
         case Qt::Key_Q:
@@ -213,9 +218,18 @@ void OGLWidget::keyPressed(QKeyEvent *event)
         case Qt::Key_E:
             m_zLight += 1;
             break;
+        // Reset
+        case Qt::Key_Space:
+            m_xRot = m_yRot = m_zRot = 0;
+            m_xLight = m_yLight = 0;
+            m_zLight = -30;
+            m_xCamPos = m_yCamPos = 0;
+            m_zCamPos = -5;
         default:
             break;
     }
+    m_camera.setToIdentity();
+    m_camera.translate(m_xCamPos, m_yCamPos, m_zCamPos);
     update();
 }
 
