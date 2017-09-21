@@ -1,3 +1,5 @@
+#version 330 core
+
 attribute vec3 vertex;
 attribute vec3 normal;
 
@@ -8,7 +10,7 @@ uniform vec3 lightPos;
 uniform mat4 projMatrix;
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
-uniform vec3 normalMatrix;
+uniform mat3 normalMatrix;
 
 void main(){
     vert = vertex;

@@ -9,7 +9,7 @@ OGLWidget::OGLWidget(QWidget* parent)
       m_zRot(0),
       m_xLight(0),
       m_yLight(0),
-      m_zLight(-30),
+      m_zLight(30),
       m_xCamPos(0),
       m_yCamPos(0),
       m_zCamPos(-5),
@@ -140,7 +140,7 @@ void OGLWidget::paintGL()
     m_program->setUniformValue(m_viewMatrixLoc, m_camera);
     QMatrix3x3 normalMatrix = (m_camera * m_world).normalMatrix();
     m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
-    m_program->setUniformValue(m_lightPosLoc, QVector3D(-m_xLight, -m_yLight, m_zLight)); // Hack
+    m_program->setUniformValue(m_lightPosLoc, QVector3D(m_xLight, m_yLight, m_zLight));
 
     // Load new data only on geometry or shader change
     if (not m_dataAlreadyLoaded)
@@ -223,7 +223,7 @@ void OGLWidget::keyPressed(QKeyEvent *event)
         case Qt::Key_Space:
             m_xRot = m_yRot = m_zRot = 0;
             m_xLight = m_yLight = 0;
-            m_zLight = -30;
+            m_zLight = 30;
             m_xCamPos = m_yCamPos = 0;
             m_zCamPos = -5;
         default:
