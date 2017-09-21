@@ -65,8 +65,7 @@ void OGLWidget::generateGLProgram()
     m_program->link();
 
     m_program->bind();
-    m_modelMatrixLoc = m_program->uniformLocation("modelMatrix");
-    m_viewMatrixLoc = m_program->uniformLocation("viewMatrix");
+    m_modelViewMatrixLoc = m_program->uniformLocation("modelViewMatrix");
     m_projMatrixLoc = m_program->uniformLocation("projMatrix");
     m_normalMatrixLoc = m_program->uniformLocation("normalMatrix");
     m_lightPosLoc = m_program->uniformLocation("lightPos");
@@ -136,8 +135,7 @@ void OGLWidget::paintGL()
     // Bind data of shaders to program
     m_program->bind();
     m_program->setUniformValue(m_projMatrixLoc, m_proj);
-    m_program->setUniformValue(m_modelMatrixLoc, m_world);
-    m_program->setUniformValue(m_viewMatrixLoc, m_camera);
+    m_program->setUniformValue(m_modelViewMatrixLoc, m_camera * m_world);
     QMatrix3x3 normalMatrix = (m_camera * m_world).normalMatrix();
     m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
     m_program->setUniformValue(m_lightPosLoc, QVector3D(m_xLight, m_yLight, m_zLight));

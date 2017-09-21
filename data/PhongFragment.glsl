@@ -20,6 +20,7 @@ void main() {
     float IambSun = 0.2; // ambient
 
     vec3 colorSun = blend * lightColSun + (1.0 - blend) * myColor;
-    gl_FragColor = vec4(colorSun * (IdiffSun + IspecSun + IambSun), 1.0);
+//     gl_FragColor = vec4(colorSun * (IdiffSun + IspecSun + IambSun), 1.0);
+    gl_FragColor = vec4(vertNormal, 1.0);
 //     gl_FragColor = vec4(1.0, 0.0, 0.0, 0.5);
 }
