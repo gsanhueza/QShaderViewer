@@ -1,5 +1,6 @@
 #include <iostream>
 #include "oglwidget.h"
+#include <cmath>
 
 OGLWidget::OGLWidget(QWidget* parent)
     : QOpenGLWidget(parent),
@@ -43,9 +44,9 @@ void OGLWidget::setupVertexAttribs()
     // type = GL_FLOAT, as that's the type of each coordinate
     // normalized = false, as there's no need to normalize here
     // stride = 0, which implies that vertices are side-to-side (VVVNNN)
-    // pointer = where is the start of the data (in VVVNNN, 0 = start of vertices and 3 * size(vertexArray) = start of normals)
+    // pointer = where is the start of the data (in VVVNNN, 0 = start of vertices and GL_FLOAT * size(vertexArray) = start of normals)
     f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(3 * sizeof(m_model.getVertices().size())));
+    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(GL_FLOAT) * sizeof(m_model.getVertices().size())));
     m_vbo.release();
 }
 
@@ -81,8 +82,8 @@ void OGLWidget::generateGLProgram()
 
     // Our camera has a initial position.
     m_camera.setToIdentity();
-    m_camera.translate(m_xCamPos, m_yCamPos, m_zCamPos);
-//     m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 1, 0));
+//     m_camera.translate(m_xCamPos, m_yCamPos, m_zCamPos);
+    m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 1, 0));
 
     m_program->release();
 }
@@ -148,7 +149,7 @@ void OGLWidget::paintGL()
     }
 
     // Draw triangulation
-    glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3);
+    glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3); // Last argument = Number of vertices
 
     cout << "Light  : (" << m_xLight << ", " << m_yLight << ", " << m_zLight << ")" << endl;
     cout << "Camera : (" << m_xCamPos << ", " << m_yCamPos << ", " << m_zCamPos << ")" << endl;
@@ -228,7 +229,7 @@ void OGLWidget::keyPressed(QKeyEvent *event)
             break;
     }
     m_camera.setToIdentity();
-    m_camera.translate(m_xCamPos, m_yCamPos, m_zCamPos);
+    m_camera.translate(-m_xCamPos, -m_yCamPos, m_zCamPos);
     update();
 }
 
