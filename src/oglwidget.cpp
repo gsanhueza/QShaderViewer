@@ -46,7 +46,7 @@ void OGLWidget::setupVertexAttribs()
     // stride = 0, which implies that vertices are side-to-side (VVVNNN)
     // pointer = where is the start of the data (in VVVNNN, 0 = start of vertices and GL_FLOAT * size(vertexArray) = start of normals)
     f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(GL_FLOAT) * sizeof(m_model.getVertices().size())));
+    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(GL_FLOAT) * m_model.getVertices().size()));
     m_vbo.release();
 }
 
@@ -82,8 +82,8 @@ void OGLWidget::generateGLProgram()
 
     // Our camera has a initial position.
     m_camera.setToIdentity();
-//     m_camera.translate(m_xCamPos, m_yCamPos, m_zCamPos);
-    m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 1, 0));
+    m_camera.translate(m_xCamPos, m_yCamPos, m_zCamPos);
+//     m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 1, 0));
 
     m_program->release();
 }
