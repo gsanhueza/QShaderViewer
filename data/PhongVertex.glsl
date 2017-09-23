@@ -4,7 +4,7 @@ attribute vec3 vertex;
 attribute vec3 normal;
 
 varying vec3 vert;
-flat out vec3 vertNormal;
+varying vec3 vertNormal;
 
 uniform vec3 lightPos;
 uniform mat4 projMatrix;
