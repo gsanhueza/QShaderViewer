@@ -1,5 +1,4 @@
 #include "geometryreader.h"
-#include <iostream>
 
 GeometryReader::GeometryReader()
 {
@@ -97,6 +96,8 @@ bool GeometryReader::loadOBJ(vector<float> &vertices, vector<float> &normals, st
             }
         }
     }
+
+    myFile.close();
 
     // Processing parsed data (Vertices)
     for (unsigned int i = 0; i < parsedVertices.size(); i++)

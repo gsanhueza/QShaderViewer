@@ -1,9 +1,5 @@
-// precision mediump float;
-
 varying vec3 normalInterp;
 varying vec3 vertPos;
-
-uniform int mode;
 
 const vec3 lightPos = vec3(1.0,1.0,31.0);
 const vec3 ambientColor = vec3(0.1, 0.0, 0.0);
@@ -30,7 +26,7 @@ void main() {
     specular = pow(specAngle, shininess);
 
     // this is phong (for comparison)
-    if(mode == 2) {
+    if(1) {
       vec3 reflectDir = reflect(-lightDir, normal);
       specAngle = max(dot(reflectDir, viewDir), 0.0);
       // note that the exponent is different here

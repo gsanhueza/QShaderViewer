@@ -1,14 +1,16 @@
-attribute vec3 inputPosition;
-attribute vec3 inputNormal;
+#version 330
 
-uniform mat4 projection, modelview, normalMat;
+attribute vec3 vertex;
+attribute vec3 normal;
+
+uniform mat4 projMatrix, modelViewMatrix, normalMatrix;
 
 varying vec3 normalInterp;
 varying vec3 vertPos;
 
 void main(){
-    gl_Position = projection * modelview * vec4(inputPosition, 1.0);
-    vec4 vertPos4 = modelview * vec4(inputPosition, 1.0);
+    gl_Position = projMatrix * modelViewMatrix * vec4(vertex, 1.0);
+    vec4 vertPos4 = modelViewMatrix * vec4(vertex, 1.0);
     vertPos = vec3(vertPos4) / vertPos4.w;
-    normalInterp = vec3(normalMat * vec4(inputNormal, 0.0));
+    normalInterp = vec3(normalMatrix * vec4(normal, 0.0));
 }
