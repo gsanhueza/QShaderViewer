@@ -1,9 +1,12 @@
+#version 330 core
+
 varying highp vec3 vert;
 varying highp vec3 vertNormal;
+
 uniform highp vec3 lightPos;
 
 void main() {
-    float blend = 0.2;
+    float blend = 0.8;
     float brightness = 1.0;
     vec3 lightColSun = vec3(1.0, 0.0, 0.0);
     vec3 myColor = vec3(0.7, 0.8, 0.0);
@@ -18,5 +21,6 @@ void main() {
 
     vec3 colorSun = blend * lightColSun + (1.0 - blend) * myColor;
     gl_FragColor = vec4(colorSun * (IdiffSun + IspecSun + IambSun), 1.0);
+//     gl_FragColor = vec4(vertNormal, 1.0);
 //     gl_FragColor = vec4(1.0, 0.0, 0.0, 0.5);
 }

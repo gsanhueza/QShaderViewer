@@ -1,5 +1,6 @@
 #include <iostream>
 #include "oglwidget.h"
+#include <cmath>
 
 OGLWidget::OGLWidget(QWidget* parent)
     : QOpenGLWidget(parent),
@@ -9,7 +10,7 @@ OGLWidget::OGLWidget(QWidget* parent)
       m_zRot(0),
       m_xLight(0),
       m_yLight(0),
-      m_zLight(-30),
+      m_zLight(30),
       m_xCamPos(0),
       m_yCamPos(0),
       m_zCamPos(-5),
@@ -43,9 +44,9 @@ void OGLWidget::setupVertexAttribs()
     // type = GL_FLOAT, as that's the type of each coordinate
     // normalized = false, as there's no need to normalize here
     // stride = 0, which implies that vertices are side-to-side (VVVNNN)
-    // pointer = where is the start of the data (in VVVNNN, 0 = start of vertices and 3 * size(vertexArray) = start of normals)
+    // pointer = where is the start of the data (in VVVNNN, 0 = start of vertices and GL_FLOAT * size(vertexArray) = start of normals)
     f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(3 * sizeof(m_model.getVertices().size())));
+    f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, reinterpret_cast<void *>(sizeof(GL_FLOAT) * m_model.getVertices().size()));
     m_vbo.release();
 }
 
@@ -65,8 +66,7 @@ void OGLWidget::generateGLProgram()
     m_program->link();
 
     m_program->bind();
-    m_modelMatrixLoc = m_program->uniformLocation("modelMatrix");
-    m_viewMatrixLoc = m_program->uniformLocation("viewMatrix");
+    m_modelViewMatrixLoc = m_program->uniformLocation("modelViewMatrix");
     m_projMatrixLoc = m_program->uniformLocation("projMatrix");
     m_normalMatrixLoc = m_program->uniformLocation("normalMatrix");
     m_lightPosLoc = m_program->uniformLocation("lightPos");
@@ -136,11 +136,10 @@ void OGLWidget::paintGL()
     // Bind data of shaders to program
     m_program->bind();
     m_program->setUniformValue(m_projMatrixLoc, m_proj);
-    m_program->setUniformValue(m_modelMatrixLoc, m_world);
-    m_program->setUniformValue(m_viewMatrixLoc, m_camera);
+    m_program->setUniformValue(m_modelViewMatrixLoc, m_camera * m_world);
     QMatrix3x3 normalMatrix = (m_camera * m_world).normalMatrix();
     m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
-    m_program->setUniformValue(m_lightPosLoc, QVector3D(-m_xLight, -m_yLight, m_zLight)); // Hack
+    m_program->setUniformValue(m_lightPosLoc, QVector3D(m_xLight, m_yLight, m_zLight));
 
     // Load new data only on geometry or shader change
     if (not m_dataAlreadyLoaded)
@@ -150,7 +149,7 @@ void OGLWidget::paintGL()
     }
 
     // Draw triangulation
-    glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3);
+    glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3); // Last argument = Number of vertices
 
     cout << "Light  : (" << m_xLight << ", " << m_yLight << ", " << m_zLight << ")" << endl;
     cout << "Camera : (" << m_xCamPos << ", " << m_yCamPos << ", " << m_zCamPos << ")" << endl;
@@ -223,14 +222,14 @@ void OGLWidget::keyPressed(QKeyEvent *event)
         case Qt::Key_Space:
             m_xRot = m_yRot = m_zRot = 0;
             m_xLight = m_yLight = 0;
-            m_zLight = -30;
+            m_zLight = 30;
             m_xCamPos = m_yCamPos = 0;
             m_zCamPos = -5;
         default:
             break;
     }
     m_camera.setToIdentity();
-    m_camera.translate(m_xCamPos, m_yCamPos, m_zCamPos);
+    m_camera.translate(-m_xCamPos, -m_yCamPos, m_zCamPos);
     update();
 }
 

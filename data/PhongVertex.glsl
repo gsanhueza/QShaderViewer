@@ -1,3 +1,5 @@
+#version 330 core
+
 attribute vec3 vertex;
 attribute vec3 normal;
 
@@ -6,13 +8,11 @@ varying vec3 vertNormal;
 
 uniform vec3 lightPos;
 uniform mat4 projMatrix;
-uniform mat4 modelMatrix;
-uniform mat4 viewMatrix;
-uniform vec3 normalMatrix;
+uniform mat4 modelViewMatrix;
+uniform mat3 normalMatrix;
 
 void main(){
     vert = vertex;
-    mat4 modelViewMatrix = viewMatrix * modelMatrix;
     vertNormal = normalMatrix * normal;
-    gl_Position = projMatrix * viewMatrix * modelMatrix * vec4(vertex, 1.0);
+    gl_Position = projMatrix * modelViewMatrix * vec4(vertex, 1.0);
 }
