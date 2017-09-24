@@ -1,4 +1,4 @@
-QT += core gui widgets
+QT      += widgets
 
 TARGET   = qshaderviewer
 TEMPLATE = app
@@ -21,5 +21,3 @@ HEADERS +=  src/qshaderviewer.h \
             src/geometryreader.h \
             src/tutorial.h \
             src/about.h \
-
-# LIBS    += -lglut -LGLU
