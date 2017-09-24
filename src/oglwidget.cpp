@@ -70,6 +70,7 @@ void OGLWidget::generateGLProgram()
     m_projMatrixLoc = m_program->uniformLocation("projMatrix");
     m_normalMatrixLoc = m_program->uniformLocation("normalMatrix");
     m_lightPosLoc = m_program->uniformLocation("lightPos");
+    m_eyePosLoc = m_program->uniformLocation("eyePos");
 
     // Create a vertex array object. In OpenGL ES 2.0 and OpenGL 2.x
     // implementations this is optional and support may not be present
@@ -140,6 +141,7 @@ void OGLWidget::paintGL()
     QMatrix3x3 normalMatrix = (m_camera * m_world).normalMatrix();
     m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
     m_program->setUniformValue(m_lightPosLoc, QVector3D(m_xLight, m_yLight, m_zLight));
+    m_program->setUniformValue(m_eyePosLoc, QVector3D(m_xCamPos, m_yCamPos, m_zCamPos));
 
     // Load new data only on geometry or shader change
     if (not m_dataAlreadyLoaded)
