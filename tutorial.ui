@@ -11,6 +11,10 @@
     <height>500</height>
    </rect>
   </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../resources/icon.png</normaloff>../resources/icon.png</iconset>
+  </property>
   <property name="windowTitle">
    <string>Tutorial</string>
   </property>

@@ -7,7 +7,7 @@ uniform highp vec3 lightPos;
 uniform highp vec3 eyePos;
 
 void main() {
-    float brightness = 10.0;
+    float brightness = 100.0;
     vec3 lightColSun = vec3(0.5, 0.0, 0.0);
 
     vec3 LightVectorSun = normalize(lightPos - vert);
@@ -19,4 +19,5 @@ void main() {
     float Iamb = 0.2; // ambient
 
     gl_FragColor = vec4(lightColSun * (Idiff + Ispec + Iamb), 1.0);
+//     gl_FragColor = vec4(vertNormal, 1.0);
 }
