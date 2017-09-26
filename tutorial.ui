@@ -11,18 +11,18 @@
     <height>500</height>
    </rect>
   </property>
+  <property name="windowTitle">
+   <string>Tutorial</string>
+  </property>
   <property name="windowIcon">
    <iconset>
     <normaloff>../resources/icon.png</normaloff>../resources/icon.png</iconset>
-  </property>
-  <property name="windowTitle">
-   <string>Tutorial</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="instructions">
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;ShaderViewer in a nutshell:&lt;/span&gt;&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Load a geometry file (OBJ). &lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Load a vertex shader (GLSL).&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Load a fragment shader (GLSL).&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;ShaderViewer will work when all 3 files have been loaded.&lt;/p&gt;&lt;p&gt;After that, you can load files on-the-fly to see how they look in the screen.&lt;/p&gt;&lt;p&gt;You can drag your mouse on the screen to move the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;QShaderViewer in a nutshell:&lt;/span&gt;&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Load a geometry file (OBJ). &lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Load a vertex shader (GLSL).&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Load a fragment shader (GLSL).&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;QShaderViewer will work when all 3 files have been loaded.&lt;/p&gt;&lt;p&gt;After that, you can load files on-the-fly to see how they look in the screen.&lt;/p&gt;&lt;p&gt;You can drag your mouse on the screen to move the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
