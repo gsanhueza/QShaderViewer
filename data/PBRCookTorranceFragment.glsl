@@ -29,7 +29,45 @@ varying highp vec3 vertNormal;
 uniform highp vec3 lightPos;
 uniform highp vec3 eyePos;
 
-void main() {
+vec3 distribution(vec3 H)
+{
+    return H;
+}
+
+vec3 fresnel(vec3 L, vec3 H)
+{
+    return L;
+}
+
+float geometricAttenuation(vec3 L, vec3 N, vec3 V, vec3 H)
+{
+    // G = min {(1, 2(H · N)(V · N) / (V · H), 2(H · N)(L · N) / (V · H)}
+
+    float NdotL = max(0.0, dot(N, L));
+    float NdotH = max(0.0, dot(N, H));
+    float NdotV = max(0.0, dot(N, V));
+    float VdotH = max(0.0, dot(V, H));
+
+    float geo_num = 2.0 * NdotH;
+    float geo_den = VdotH;
+
+    float geo_a = 1.0;
+    float geo_b = (geo_num * NdotV) / geo_den;
+    float geo_c = (geo_num * NdotL) / geo_den;
+
+    return min(geo_a, min(geo_b, geo_c));
+}
+
+void main()
+{
+    // Geometric Term
+    vec3 halfVector = normalize(lightPos + eyePos);
+    float geo = geometricAttenuation(lightPos, vertNormal, eyePos, halfVector);
+
+    // TODO Compute roughness (Beckmann distribution, a.k.a. D)
+    // TODO Compute Fresnel term
+    // TODO Evaluate specular with the above data
+    // TODO Return whole illumination as diffuse + specular
     float brightness = 100.0;
     vec3 lightColSun = vec3(0.5, 0.5, 0.0);
 
@@ -43,8 +81,5 @@ void main() {
     // Specular
     float Ispec = pow(max(dot(EyeVector, ReflectedVectorSun), 0.0), brightness);
 
-    // Ambient
-    float Iamb = 0.2;
-
-    gl_FragColor = vec4(lightColSun * (Idiff + Ispec + Iamb), 1.0);
+    gl_FragColor = vec4(lightColSun * (Idiff + Ispec), 1.0);
 }
