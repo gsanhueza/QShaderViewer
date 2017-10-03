@@ -5,7 +5,7 @@ The Cook–Torrance model uses a specular term of the form
 
 k_spec = DFG / (4(V · N)(N · L))
 
-Here D is the Beckmann distribution factor as above and F is the Fresnel term.
+Here D is the Beckmann distribution factor (roughness) and F is the Fresnel term.
 For performance reasons, in real-time 3D graphics Schlick's approximation is often used to approximate the Fresnel term.
 
 G is the geometric attenuation term, describing selfshadowing due to the microfacets, and is of the form
@@ -29,14 +29,14 @@ varying highp vec3 vertNormal;
 uniform highp vec3 lightPos;
 uniform highp vec3 eyePos;
 
-vec3 distribution(vec3 H)
+float beckmannDistribution(vec3 H)
 {
-    return H;
+    return 0.0;
 }
 
-vec3 fresnel(vec3 L, vec3 H)
+float fresnelValue(vec3 L, vec3 H)
 {
-    return L;
+    return 0.0;
 }
 
 float geometricAttenuation(vec3 L, vec3 N, vec3 V, vec3 H)
@@ -60,26 +60,32 @@ float geometricAttenuation(vec3 L, vec3 N, vec3 V, vec3 H)
 
 void main()
 {
-    // Geometric Term
-    vec3 halfVector = normalize(lightPos + eyePos);
-    float geo = geometricAttenuation(lightPos, vertNormal, eyePos, halfVector);
-
-    // TODO Compute roughness (Beckmann distribution, a.k.a. D)
-    // TODO Compute Fresnel term
-    // TODO Evaluate specular with the above data
-    // TODO Return whole illumination as diffuse + specular
     float brightness = 100.0;
-    vec3 lightColSun = vec3(0.5, 0.5, 0.0);
+    vec3 lightCol = vec3(0.5, 0.5, 0.0);
 
-    vec3 LightVectorSun = normalize(lightPos - vert);
-    vec3 ReflectedVectorSun = reflect(LightVectorSun, vertNormal);
+    // Geometric Term
+    vec3 HalfVector = normalize(lightPos + eyePos);
+    vec3 LightVector = normalize(lightPos - vert);
     vec3 EyeVector = normalize(eyePos - vert);
 
-    // Diffuse
-    float Idiff = max(dot(vertNormal, LightVectorSun), 0.0);
+    float geo = geometricAttenuation(LightVector, vertNormal, EyeVector, HalfVector);
 
+    // TODO Compute roughness (Beckmann distribution, a.k.a. D)
+    float roughness = beckmannDistribution(HalfVector);
+
+    // TODO Compute Fresnel term
+    float fresnel = fresnelValue(LightVector, HalfVector);
+
+    vec3 ReflectedVectorSun = reflect(LightVector, vertNormal);
+
+
+    // Diffuse
+    float Idiff = max(dot(vertNormal, LightVector), 0.0);
+
+    // TODO Evaluate specular with the above data
     // Specular
     float Ispec = pow(max(dot(EyeVector, ReflectedVectorSun), 0.0), brightness);
 
-    gl_FragColor = vec4(lightColSun * (Idiff + Ispec), 1.0);
+    // Return whole illumination as diffuse + specular
+    gl_FragColor = vec4(lightCol * (Idiff + Ispec), 1.0);
 }
