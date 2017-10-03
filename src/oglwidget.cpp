@@ -153,10 +153,10 @@ void OGLWidget::paintGL()
     // Draw triangulation
     glDrawArrays(GL_TRIANGLES, 0, m_data.count() / 3); // Last argument = Number of vertices
 
-    cout << "Light  : (" << m_xLight << ", " << m_yLight << ", " << m_zLight << ")" << endl;
-    cout << "Camera : (" << m_xCamPos << ", " << m_yCamPos << ", " << m_zCamPos << ")" << endl;
-    cout << "Rotate : (" << m_xRot / 16 << ", " << m_yRot / 16 << ", " << m_zRot / 16 << ")" << endl;
-    cout << endl;
+//     cout << "Light  : (" << m_xLight << ", " << m_yLight << ", " << m_zLight << ")" << endl;
+//     cout << "Camera : (" << m_xCamPos << ", " << m_yCamPos << ", " << m_zCamPos << ")" << endl;
+//     cout << "Rotate : (" << m_xRot / 16 << ", " << m_yRot / 16 << ", " << m_zRot / 16 << ")" << endl;
+//     cout << endl;
 
     m_program->release();
 }
