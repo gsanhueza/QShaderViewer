@@ -67,7 +67,7 @@ void main()
     // FIXME Get refIdx = refraction index for Fresnel term (uniform float)
     // Fresnel Term
     // F = F0 + (1 - (H · V))^5 * (1 - F0);
-    float refIdx = 2.2;
+    float refIdx = 2.5;
     float fresnel = refIdx + pow(1.0 - VdotH, 5) * (1.0 - refIdx);
 
     // Specular
