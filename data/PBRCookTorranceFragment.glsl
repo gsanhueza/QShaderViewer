@@ -34,9 +34,9 @@ void main()
     vec3 cDiffuse = vec3(0.5, 0.5, 0.0);
     vec3 cSpecular = vec3(0.5, 0.5, 0.0);
 
-    vec3 HalfVector = normalize(lightPos + eyePos);
     vec3 LightVector = normalize(lightPos - vert);
-    vec3 EyeVector = normalize(eyePos - vert);
+    vec3 EyeVector = normalize(-eyePos);
+    vec3 HalfVector = normalize(LightVector + EyeVector);
 
     float NdotL = max(0.0, dot(vertNormal, LightVector));
     float NdotH = max(0.0, dot(vertNormal, HalfVector));
@@ -57,7 +57,7 @@ void main()
     // FIXME Get m = roughness value (uniform float)
     // Beckmann Distribution term
     // D = (1 / (m^2 * (N · H)^4)) * exp((N · H)^2 - 1 / (m^2 * (N · H)^2)
-    float m = 0.2;
+    float m = 0.8;
 
     float d_frac = 1.0 / (pow(m, 2) * pow(NdotH, 4));
     float d_exp = exp((pow(NdotH, 2) - 1) / (pow(m, 2) * pow(NdotH, 2)));
@@ -67,12 +67,12 @@ void main()
     // FIXME Get refIdx = refraction index for Fresnel term (uniform float)
     // Fresnel Term
     // F = F0 + (1 - (H · V))^5 * (1 - F0);
-    float refIdx = 0.2;
+    float refIdx = 2.2;
     float fresnel = refIdx + pow(1.0 - VdotH, 5) * (1.0 - refIdx);
 
     // Specular
     float Rs = (roughness * fresnel * geometric) / (4.0 * NdotV * NdotL);
 
     // Return whole illumination as diffuse + specular
-    gl_FragColor = vec4(max(0.0, NdotL) * (cSpecular * Rs + cDiffuse), 1.0);
+    gl_FragColor = vec4(max(0.0, NdotL) * (cSpecular * clamp(Rs, 0.0, 1.0) + cDiffuse), 1.0);
 }
