@@ -29,45 +29,6 @@ varying highp vec3 vertNormal;
 uniform highp vec3 lightPos;
 uniform highp vec3 eyePos;
 
-float beckmannDistribution(vec3 N, vec3 H, float m)
-{
-    // D = (1 / (m^2 * (N · H)^4)) * exp((N · H)^2 - 1 / (m^2 * (N · H)^2)
-
-    float NdotH = max(0.0, dot(N, H));
-
-    float d_frac = 1.0 / (pow(m, 2) * pow(NdotH, 4));
-    float d_exp = exp((pow(NdotH, 2) - 1) / (pow(m, 2) * pow(NdotH, 2)));
-    return d_frac * d_exp;
-}
-
-float fresnelValue(vec3 H, vec3 V, float refIdx)
-{
-    // F = F0 + (1 - (H · V))^5 * (1 - F0);
-
-    float HdotV = max(0.0, dot(H, V));
-
-    return refIdx + pow(1 - HdotV, 5) * (1 - refIdx);
-}
-
-float geometricAttenuation(vec3 L, vec3 N, vec3 V, vec3 H)
-{
-    // G = min {(1, 2(H · N)(V · N) / (V · H), 2(H · N)(L · N) / (V · H)}
-
-    float NdotL = max(0.0, dot(N, L));
-    float NdotH = max(0.0, dot(N, H));
-    float NdotV = max(0.0, dot(N, V));
-    float VdotH = max(0.0, dot(V, H));
-
-    float geo_num = 2.0 * NdotH;
-    float geo_den = VdotH;
-
-    float geo_a = 1.0;
-    float geo_b = (geo_num * NdotV) / geo_den;
-    float geo_c = (geo_num * NdotL) / geo_den;
-
-    return min(geo_a, min(geo_b, geo_c));
-}
-
 void main()
 {
     vec3 cDiffuse = vec3(0.5, 0.5, 0.0);
@@ -83,18 +44,34 @@ void main()
     float VdotH = max(0.0, dot(EyeVector, HalfVector));
 
     // Geometric Term
-    float geometric = geometricAttenuation(LightVector, vertNormal, EyeVector, HalfVector);
+    // G = min {(1, 2(H · N)(V · N) / (V · H), 2(H · N)(L · N) / (V · H)}
+    float geo_num = 2.0 * NdotH;
+    float geo_den = VdotH;
 
-    // FIXME Get roughness value (uniform float)
-    float roughnessValue = 0.2;
-    float roughness = beckmannDistribution(vertNormal, HalfVector, roughnessValue);
+    float geo_a = 1.0;
+    float geo_b = (geo_num * NdotV) / geo_den;
+    float geo_c = (geo_num * NdotL) / geo_den;
 
-    // FIXME Get refraction index for Fresnel term (uniform float)
-    float refractionIndex = 0.2;
-    float fresnel = fresnelValue(HalfVector, EyeVector, refractionIndex);
+    float geometric = min(geo_a, min(geo_b, geo_c));
+
+    // FIXME Get m = roughness value (uniform float)
+    // Beckmann Distribution term
+    // D = (1 / (m^2 * (N · H)^4)) * exp((N · H)^2 - 1 / (m^2 * (N · H)^2)
+    float m = 0.2;
+
+    float d_frac = 1.0 / (pow(m, 2) * pow(NdotH, 4));
+    float d_exp = exp((pow(NdotH, 2) - 1) / (pow(m, 2) * pow(NdotH, 2)));
+
+    float roughness = d_frac * d_exp;
+
+    // FIXME Get refIdx = refraction index for Fresnel term (uniform float)
+    // Fresnel Term
+    // F = F0 + (1 - (H · V))^5 * (1 - F0);
+    float refIdx = 0.2;
+    float fresnel = refIdx + pow(1.0 - VdotH, 5) * (1.0 - refIdx);
 
     // Specular
-    float Rs = (fresnel * roughness * geometric) / (NdotV * NdotL) ;
+    float Rs = (roughness * fresnel * geometric) / (4.0 * NdotV * NdotL);
 
     // Return whole illumination as diffuse + specular
     gl_FragColor = vec4(max(0.0, NdotL) * (cSpecular * Rs + cDiffuse), 1.0);
