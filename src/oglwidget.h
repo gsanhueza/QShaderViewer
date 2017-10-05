@@ -72,6 +72,9 @@ private:
     int m_normalMatrixLoc;
     int m_lightPosLoc;
     int m_eyePosLoc;
+    int m_materialLoc;
+    int m_albedoLoc;
+
     QMatrix4x4 m_proj;
     QMatrix4x4 m_camera;
     QMatrix4x4 m_world;

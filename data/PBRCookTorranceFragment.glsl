@@ -5,7 +5,7 @@ The Cook–Torrance model uses a specular term of the form
 
 k_spec = DFG / (4(V · N)(N · L))
 
-D = Trowbridge-Reitz GGX
+D = Trowbridge-Reitz GGX or Beckmann
 F = Fresnel-Schlick
 G = Schlick GGX
 
@@ -16,6 +16,8 @@ varying highp vec3 vertNormal;
 
 uniform highp vec3 lightPos;
 uniform highp vec3 eyePos;
+uniform highp vec3 material; // X = Albedo, Y = Microsurface, Z = Reflectivity
+uniform highp vec3 albedo; // Base color
 
 #define PI 3.14159
 
@@ -34,17 +36,19 @@ float D_beckmann(in float roughness, in float NdH)
     float m = roughness * roughness;
     float m2 = m * m;
     float NdH2 = NdH * NdH;
-    return exp((NdH2 - 1.0) / (m2 * NdH2)) / (PI * m2 * NdH2 * NdH2);
+    return exp((NdH2 - 1.0) / (m2 * NdH2)) / (m2 * NdH2 * NdH2);
 }
 
+// Geometric (Schlick)
 float G_schlick(in float roughness, in float NdV, in float NdL)
 {
-    float k = roughness * roughness * 0.5;
-    float V = NdV * (1.0 - k) + k;
-    float L = NdL * (1.0 - k) + k;
-    return 0.25 / (V * L);
+    float k = pow(roughness + 1.0, 2) / 8;
+    float V = NdV / (NdV * (1.0 - k) + k);
+    float L = NdL / (NdL * (1.0 - k) + k);;
+    return (V * L);
 }
 
+// Fresnel (Schlick)
 float F_schlick(float F0, float VdH)
 {
     return F0 + pow(1.0 - VdH, 5) * (1.0 - F0);
@@ -52,8 +56,8 @@ float F_schlick(float F0, float VdH)
 
 void main()
 {
-    vec3 cDiffuse = vec3(1.0, 1.0, 0.0);
-    vec3 cSpecular = vec3(1.0, 1.0, 0.0);
+    vec3 cDiffuse = albedo;
+    vec3 cSpecular = vec3(1.0, 1.0, 1.0);
 
     vec3 LightVector = normalize(lightPos - vert);
     vec3 EyeVector = normalize(-eyePos);
@@ -65,15 +69,17 @@ void main()
     float VdotH = max(0.0, dot(EyeVector, HalfVector));
 
     // FIXME Get m = roughness value (uniform float)
-    float roughness = 0.01;
+    float roughness = 0.3;
 
     // FIXME Get refIdx = refraction index for Fresnel term (uniform float)
     float refIdx = 0.2;
 
     // Distribution term
-    float distribution = D_beckmann(roughness, NdotH);
+    // roughness = Microsurface
+    float distribution = D_GGX(roughness, NdotH);
 
     // Fresnel Term
+    // refIdx = Reflectivity
     float fresnel = F_schlick(refIdx, VdotH);
 
     // Geometric Term

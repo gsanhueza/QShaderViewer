@@ -71,6 +71,8 @@ void OGLWidget::generateGLProgram()
     m_normalMatrixLoc = m_program->uniformLocation("normalMatrix");
     m_lightPosLoc = m_program->uniformLocation("lightPos");
     m_eyePosLoc = m_program->uniformLocation("eyePos");
+    m_materialLoc = m_program->uniformLocation("material");
+    m_albedoLoc = m_program->uniformLocation("albedo");
 
     // Create a vertex array object. In OpenGL ES 2.0 and OpenGL 2.x
     // implementations this is optional and support may not be present
@@ -142,6 +144,8 @@ void OGLWidget::paintGL()
     m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
     m_program->setUniformValue(m_lightPosLoc, QVector3D(m_xLight, m_yLight, m_zLight));
     m_program->setUniformValue(m_eyePosLoc, QVector3D(m_xCamPos, m_yCamPos, m_zCamPos));
+    m_program->setUniformValue(m_albedoLoc, QVector3D(0.8, 0.5, 0.2)); // FIXME Get albedo data
+    m_program->setUniformValue(m_materialLoc, QVector3D(0.3, 0.3, 0.3)); // FIXME Get material data
 
     // Load new data only on geometry or shader change
     if (not m_dataAlreadyLoaded)
