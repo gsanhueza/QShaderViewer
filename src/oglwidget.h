@@ -93,6 +93,9 @@ private:
     float m_zCamPos;
 
     QVector<GLfloat> m_data;
+    QVector<QVector3D> m_albedoVector;
+    QVector<QVector2D> m_materialVector;
+    int m_materialPos;
     bool m_dataAlreadyLoaded;
 };
 #endif

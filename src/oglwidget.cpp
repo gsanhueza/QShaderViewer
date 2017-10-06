@@ -14,8 +14,24 @@ OGLWidget::OGLWidget(QWidget* parent)
       m_xCamPos(0),
       m_yCamPos(0),
       m_zCamPos(-5),
+      m_materialPos(0),
       m_dataAlreadyLoaded(false)
 {
+    // FIXME Get real values
+    m_albedoVector.append(QVector3D(0.8, 0.5, 0.2));
+    m_materialVector.append(QVector2D(0.9, 1.0));
+
+    m_albedoVector.append(QVector3D(0.5, 0.5, 0.1));
+    m_materialVector.append(QVector2D(0.3, 10.0));
+
+    m_albedoVector.append(QVector3D(0.1, 0.7, 0.4));
+    m_materialVector.append(QVector2D(0.6, 5.0));
+
+    m_albedoVector.append(QVector3D(0.1, 0.2, 0.9));
+    m_materialVector.append(QVector2D(0.8, 2.0));
+
+    m_albedoVector.append(QVector3D(0.6, 0.2, 0.3));
+    m_materialVector.append(QVector2D(0.95, 11.0));
 }
 
 OGLWidget::~OGLWidget()
@@ -86,7 +102,6 @@ void OGLWidget::generateGLProgram()
     // Our camera has a initial position.
     m_camera.setToIdentity();
     m_camera.translate(m_xCamPos, m_yCamPos, m_zCamPos);
-//     m_camera.lookAt(QVector3D(0, 0, -5), QVector3D(0, 0, 0), QVector3D(0, 1, 0));
 
     m_program->release();
 }
@@ -144,8 +159,8 @@ void OGLWidget::paintGL()
     m_program->setUniformValue(m_normalMatrixLoc, normalMatrix);
     m_program->setUniformValue(m_lightPosLoc, QVector3D(m_xLight, m_yLight, m_zLight));
     m_program->setUniformValue(m_eyePosLoc, QVector3D(m_xCamPos, m_yCamPos, m_zCamPos));
-    m_program->setUniformValue(m_albedoLoc, QVector3D(0.8, 0.5, 0.2)); // FIXME Get albedo data
-    m_program->setUniformValue(m_materialLoc, QVector3D(0.3, 0.3, 0.3)); // FIXME Get material data
+    m_program->setUniformValue(m_albedoLoc, m_albedoVector.at(m_materialPos));
+    m_program->setUniformValue(m_materialLoc, m_materialVector.at(m_materialPos));
 
     // Load new data only on geometry or shader change
     if (not m_dataAlreadyLoaded)
@@ -223,6 +238,11 @@ void OGLWidget::keyPressed(QKeyEvent *event)
             break;
         case Qt::Key_E:
             m_zLight += 1;
+            break;
+        // Albedo
+        case Qt::Key_T:
+            m_materialPos += 1;
+            m_materialPos %= m_albedoVector.size();
             break;
         // Reset
         case Qt::Key_Space:

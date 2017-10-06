@@ -16,7 +16,7 @@ varying highp vec3 vertNormal;
 
 uniform highp vec3 lightPos;
 uniform highp vec3 eyePos;
-uniform highp vec3 material; // X = Albedo, Y = Microsurface, Z = Reflectivity
+uniform highp vec2 material; // X = Roughness, Y = Reflectivity
 uniform highp vec3 albedo; // Base color
 
 #define PI 3.14159
@@ -57,7 +57,7 @@ float F_schlick(float F0, float VdH)
 void main()
 {
     vec3 cDiffuse = albedo;
-    vec3 cSpecular = vec3(1.0, 1.0, 1.0);
+    vec3 cSpecular = vec3(0.5, 0.5, 0.5);
 
     vec3 LightVector = normalize(lightPos - vert);
     vec3 EyeVector = normalize(-eyePos);
@@ -69,10 +69,14 @@ void main()
     float VdotH = max(0.0, dot(EyeVector, HalfVector));
 
     // FIXME Get m = roughness value (uniform float)
-    float roughness = 0.3;
+//     float roughness = 0.9;
+    float roughness = material.x;
 
     // FIXME Get refIdx = refraction index for Fresnel term (uniform float)
-    float refIdx = 0.2;
+    // Non-metals: 2 - 5
+    // Metals: 25 - 40
+//     float refIdx = 1.0;
+    float refIdx = material.y;
 
     // Distribution term
     // roughness = Microsurface
