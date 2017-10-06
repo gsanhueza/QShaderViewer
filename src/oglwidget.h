@@ -72,6 +72,9 @@ private:
     int m_normalMatrixLoc;
     int m_lightPosLoc;
     int m_eyePosLoc;
+    int m_materialLoc;
+    int m_albedoLoc;
+
     QMatrix4x4 m_proj;
     QMatrix4x4 m_camera;
     QMatrix4x4 m_world;
@@ -90,6 +93,9 @@ private:
     float m_zCamPos;
 
     QVector<GLfloat> m_data;
+    QVector<QVector3D> m_albedoVector;
+    QVector<QVector2D> m_materialVector;
+    int m_materialPos;
     bool m_dataAlreadyLoaded;
 };
 #endif
