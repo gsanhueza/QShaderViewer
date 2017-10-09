@@ -1,4 +1,4 @@
-#version 330 core
+#version 120
 
 varying highp vec3 vert;
 varying highp vec3 vertNormal;
