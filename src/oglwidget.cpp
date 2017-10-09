@@ -18,11 +18,11 @@ OGLWidget::OGLWidget(QWidget* parent)
       m_dataAlreadyLoaded(false)
 {
     // FIXME Get real values
-    m_albedoVector.append(QVector3D(0.8, 0.5, 0.2));
-    m_materialVector.append(QVector2D(0.9, 1.0));
-
     m_albedoVector.append(QVector3D(0.5, 0.5, 0.1));
     m_materialVector.append(QVector2D(0.3, 10.0));
+
+    m_albedoVector.append(QVector3D(0.8, 0.5, 0.2));
+    m_materialVector.append(QVector2D(0.9, 1.0));
 
     m_albedoVector.append(QVector3D(0.1, 0.7, 0.4));
     m_materialVector.append(QVector2D(0.6, 5.0));

@@ -1,4 +1,4 @@
-#version 330 core
+#version 120
 
 /*
 The Cook–Torrance model uses a specular term of the form
@@ -10,17 +10,16 @@ For performance reasons, in real-time 3D graphics Schlick's approximation is oft
 
 G is the geometric attenuation term, describing selfshadowing due to the microfacets, and is of the form
 
-D = TODO
-F = TODO
-G = min {(1, 2(H · N)(V · N) / (V · H), 2(H · N)(L · N) / (V · H)}      // These are 3 components inside min.
+Summary:
+D = Trowbridge-Reitz GGX or Beckmann
+F = Fresnel-Schlick
+G = Schlick GGX
 
 In these formulas:
 - V is the vector to the camera or eye
 - H is the half-angle vector
 - L is the vector to the light source
 - N is the normal vector
-- α is the angle between H and N. (Not in the formula?)
-
 */
 
 attribute vec3 vertex;

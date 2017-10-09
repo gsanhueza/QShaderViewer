@@ -1,14 +1,25 @@
-#version 330 core
+#version 120
 
 /*
 The Cook–Torrance model uses a specular term of the form
 
 k_spec = DFG / (4(V · N)(N · L))
 
+Here D is the Beckmann distribution factor as above and F is the Fresnel term.
+For performance reasons, in real-time 3D graphics Schlick's approximation is often used to approximate the Fresnel term.
+
+G is the geometric attenuation term, describing selfshadowing due to the microfacets, and is of the form
+
+Summary:
 D = Trowbridge-Reitz GGX or Beckmann
 F = Fresnel-Schlick
 G = Schlick GGX
 
+In these formulas:
+- V is the vector to the camera or eye
+- H is the half-angle vector
+- L is the vector to the light source
+- N is the normal vector
 */
 
 varying highp vec3 vert;
@@ -16,7 +27,7 @@ varying highp vec3 vertNormal;
 
 uniform highp vec3 lightPos;
 uniform highp vec3 eyePos;
-uniform highp vec2 material; // X = Roughness, Y = Reflectivity
+uniform highp vec2 material; // X = Roughness, Y = Metallic
 uniform highp vec3 albedo; // Base color
 
 #define PI 3.14159
@@ -68,14 +79,12 @@ void main()
     float NdotV = max(0.0, dot(vertNormal, EyeVector));
     float VdotH = max(0.0, dot(EyeVector, HalfVector));
 
-    // FIXME Get m = roughness value (uniform float)
-//     float roughness = 0.9;
+    // Roughness
     float roughness = material.x;
 
-    // FIXME Get refIdx = refraction index for Fresnel term (uniform float)
+    // refIdx = refraction index for Fresnel term (uniform float)
     // Non-metals: 2 - 5
     // Metals: 25 - 40
-//     float refIdx = 1.0;
     float refIdx = material.y;
 
     // Distribution term
@@ -83,7 +92,7 @@ void main()
     float distribution = D_GGX(roughness, NdotH);
 
     // Fresnel Term
-    // refIdx = Reflectivity
+    // refIdx = Metallic
     float fresnel = F_schlick(refIdx, VdotH);
 
     // Geometric Term

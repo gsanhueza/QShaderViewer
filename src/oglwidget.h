@@ -28,8 +28,6 @@
 #include <QMatrix4x4>
 #include <QMouseEvent>
 #include <QStringRef>
-#include <GL/glu.h>
-#include <GL/gl.h>
 
 #include "model.h"
 
